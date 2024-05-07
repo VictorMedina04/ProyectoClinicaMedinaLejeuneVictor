@@ -1,6 +1,6 @@
 package com.salesianostriana.dam.clinicamedinalejeunevictor.modelos;
 
-import jakarta.persistence.Entity;
+
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.MappedSuperclass;
@@ -14,7 +14,6 @@ import lombok.experimental.SuperBuilder;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
 @SuperBuilder
 @MappedSuperclass
 public class Usuario {

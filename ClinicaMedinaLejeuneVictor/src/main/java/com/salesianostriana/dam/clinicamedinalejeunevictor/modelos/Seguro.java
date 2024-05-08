@@ -22,6 +22,6 @@ public class Seguro {
 	private String nombre;
 	private double precio;
 	private String descripcion;
-	//private PagoSeguro List<PagoSeguro> pagos;
+	
 	
 }

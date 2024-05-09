@@ -6,6 +6,7 @@ import java.util.List;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.ForeignKey;
+import jakarta.persistence.Id;
 import jakarta.persistence.IdClass;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -31,6 +32,7 @@ public class Doctor extends Usuario {
 	private double salario;
 	private boolean indJefe;
 
+	@Id
 	@ManyToOne
 	@JoinColumn(foreignKey = @ForeignKey(name = "fk_doctor_departamento"))
 	private Departamento departamento;

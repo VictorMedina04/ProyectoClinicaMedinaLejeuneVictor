@@ -1,11 +1,16 @@
 package com.salesianostriana.dam.clinicamedinalejeunevictor.modelos;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.ForeignKey;
 import jakarta.persistence.Id;
 import jakarta.persistence.IdClass;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,15 +21,15 @@ import lombok.ToString;
 @Getter
 @Setter
 @NoArgsConstructor
-@ToString(callSuper=true)
-@EqualsAndHashCode(callSuper=true)
+@ToString(callSuper = true)
+@EqualsAndHashCode(callSuper = true)
 @IdClass(DoctorPk.class)
 
-public class Doctor extends Usuario{
+public class Doctor extends Usuario {
 
 	private double salario;
 	private boolean indJefe;
-	
+
 	@Id
 	@ManyToOne
 	@JoinColumn(foreignKey = @ForeignKey(name = "fk_doctor_departamento"))
@@ -37,5 +42,8 @@ public class Doctor extends Usuario{
 		this.departamento = departamento;
 	}
 
-	
+	@OneToMany(mappedBy = "doctor", fetch = FetchType.EAGER)
+	@EqualsAndHashCode.Exclude
+	@ToString.Exclude
+	private List<Cita> citas = new ArrayList<>();
 }

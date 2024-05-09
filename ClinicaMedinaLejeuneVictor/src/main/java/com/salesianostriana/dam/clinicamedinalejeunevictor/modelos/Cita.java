@@ -17,11 +17,6 @@ import lombok.NoArgsConstructor;
 @Entity
 public class Cita {
 
-	private LocalDateTime fechaInicio;
-	private LocalDateTime fechaFin;
-	private LocalDateTime dia;
-	private boolean especial;
-
 	@EmbeddedId
 	private CitasPk citasPk = new CitasPk();
 
@@ -34,6 +29,11 @@ public class Cita {
 	@MapsId("idCliente")
 	@JoinColumn(name = "idCliente")
 	private Cliente cliente;
+
+	private LocalDateTime fechaInicio;
+	private LocalDateTime fechaFin;
+	private LocalDateTime dia;
+	private boolean especial;
 
 	// Helper doctor
 	public void addToDoctor(Doctor doctor) {

@@ -10,15 +10,18 @@ import jakarta.persistence.IdClass;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import lombok.experimental.SuperBuilder;
 
 @Entity
 @Getter
 @Setter
+@SuperBuilder
 @NoArgsConstructor
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
@@ -41,6 +44,7 @@ public class Doctor extends Usuario {
 
 	@OneToMany(mappedBy = "doctor", fetch = FetchType.EAGER)
 	@EqualsAndHashCode.Exclude
+	@Builder.Default
 	@ToString.Exclude
 	private List<Cita> citas = new ArrayList<>();
 }

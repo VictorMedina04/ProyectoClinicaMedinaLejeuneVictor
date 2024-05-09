@@ -4,8 +4,6 @@ import java.time.LocalDateTime;
 
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.MapsId;
@@ -19,17 +17,13 @@ import lombok.NoArgsConstructor;
 @Entity
 public class Cita {
 
-	@Id
-	@GeneratedValue
-	private long idCita;
-
 	private LocalDateTime fechaInicio;
 	private LocalDateTime fechaFin;
 	private LocalDateTime dia;
 	private boolean especial;
 
 	@EmbeddedId
-	private CitasPk citasPk;
+	private CitasPk citasPk = new CitasPk();
 
 	@ManyToOne
 	@MapsId("idDoctor")

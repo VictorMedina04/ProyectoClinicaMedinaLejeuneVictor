@@ -2,10 +2,10 @@ package com.salesianostriana.dam.clinicamedinalejeunevictor.modelos;
 
 import java.time.LocalDateTime;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.MapsId;
@@ -19,17 +19,8 @@ import lombok.NoArgsConstructor;
 @Entity
 public class Cita {
 
-	@Id
-	@GeneratedValue
-	private long idCita;
-
-	private LocalDateTime fechaInicio;
-	private LocalDateTime fechaFin;
-	private LocalDateTime dia;
-	private boolean especial;
-
 	@EmbeddedId
-	private CitasPk citasPk;
+	private CitasPk citasPk = new CitasPk();
 
 	@ManyToOne
 	@MapsId("idDoctor")
@@ -40,6 +31,12 @@ public class Cita {
 	@MapsId("idCliente")
 	@JoinColumn(name = "idCliente")
 	private Cliente cliente;
+
+	@DateTimeFormat(pattern = "MM-dd-HH")
+	private LocalDateTime fechaInicio;
+	@DateTimeFormat(pattern = "MM-dd-HH")
+	private LocalDateTime fechaFin;
+	private boolean especial;
 
 	// Helper doctor
 	public void addToDoctor(Doctor doctor) {

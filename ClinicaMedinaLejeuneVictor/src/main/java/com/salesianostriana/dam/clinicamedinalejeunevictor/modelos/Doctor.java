@@ -10,16 +10,21 @@ import jakarta.persistence.IdClass;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import lombok.experimental.SuperBuilder;
 
 @Entity
 @Getter
 @Setter
+@SuperBuilder
 @NoArgsConstructor
+@AllArgsConstructor
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
 @IdClass(DoctorPk.class)
@@ -32,15 +37,9 @@ public class Doctor extends Usuario {
 	@JoinColumn(foreignKey = @ForeignKey(name = "fk_doctor_departamento"))
 	private Departamento departamento;
 
-	public Doctor(UsuarioBuilder<?, ?> b, double salario, boolean indJefe, Departamento departamento) {
-		super(b);
-		this.salario = salario;
-		this.indJefe = indJefe;
-		this.departamento = departamento;
-	}
-
 	@OneToMany(mappedBy = "doctor", fetch = FetchType.EAGER)
 	@EqualsAndHashCode.Exclude
+	@Builder.Default
 	@ToString.Exclude
 	private List<Cita> citas = new ArrayList<>();
 }

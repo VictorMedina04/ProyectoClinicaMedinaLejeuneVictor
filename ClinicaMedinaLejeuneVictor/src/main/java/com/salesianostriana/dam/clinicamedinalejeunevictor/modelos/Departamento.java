@@ -3,7 +3,6 @@ package com.salesianostriana.dam.clinicamedinalejeunevictor.modelos;
 import java.util.ArrayList;
 import java.util.List;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -29,21 +28,10 @@ public class Departamento {
 
 	private String especialidad;
 
+	@OneToMany(mappedBy = "departamento", fetch = FetchType.EAGER)
+	@Builder.Default
 	@ToString.Exclude
 	@EqualsAndHashCode.Exclude
-	@Builder.Default
-	@OneToMany(mappedBy = "departamento", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Doctor> doctores = new ArrayList();
 
-	// MÉTODOS HELPER
-
-	public void addDoctor(Doctor doctor) {
-		doctor.setDepartamento(this);
-		this.doctores.add(doctor);
-	}
-
-	public void removeAsiento(Doctor doctor) {
-		this.doctores.remove(doctor);
-
-	}
 }

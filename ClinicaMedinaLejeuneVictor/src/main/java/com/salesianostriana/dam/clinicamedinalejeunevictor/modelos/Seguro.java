@@ -1,5 +1,6 @@
 package com.salesianostriana.dam.clinicamedinalejeunevictor.modelos;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.Entity;
@@ -31,6 +32,7 @@ public class Seguro {
 
 	@ToString.Exclude
 	@EqualsAndHashCode.Exclude
+	@Builder.Default
 	@OneToMany(mappedBy = "cliente", fetch = FetchType.EAGER)
-	private List<Cliente> clientes;
+	private List<Cliente> clientes = new ArrayList<Cliente>();
 }

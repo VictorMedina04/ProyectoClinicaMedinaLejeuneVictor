@@ -33,6 +33,6 @@ public class Seguro {
 	@ToString.Exclude
 	@EqualsAndHashCode.Exclude
 	@Builder.Default
-	@OneToMany(mappedBy = "cliente", fetch = FetchType.EAGER)
-	private List<Cliente> clientes = new ArrayList<Cliente>();
+	@OneToMany(mappedBy = "seguro", fetch = FetchType.EAGER)
+	private List<Cliente> clientes = new ArrayList<>();
 }

@@ -2,6 +2,8 @@ package com.salesianostriana.dam.clinicamedinalejeunevictor.modelos;
 
 import java.time.LocalDateTime;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
@@ -30,8 +32,11 @@ public class Cita {
 	@JoinColumn(name = "idCliente")
 	private Cliente cliente;
 
+	@DateTimeFormat(pattern = "MM-dd")
 	private LocalDateTime fechaInicio;
+	@DateTimeFormat(pattern = "MM-dd")
 	private LocalDateTime fechaFin;
+	@DateTimeFormat(pattern = "HH")
 	private LocalDateTime dia;
 	private boolean especial;
 

@@ -32,12 +32,10 @@ public class Cita {
 	@JoinColumn(name = "idCliente")
 	private Cliente cliente;
 
-	@DateTimeFormat(pattern = "MM-dd")
+	@DateTimeFormat(pattern = "MM-dd-HH")
 	private LocalDateTime fechaInicio;
-	@DateTimeFormat(pattern = "MM-dd")
+	@DateTimeFormat(pattern = "MM-dd-HH")
 	private LocalDateTime fechaFin;
-	@DateTimeFormat(pattern = "HH")
-	private LocalDateTime dia;
 	private boolean especial;
 
 	// Helper doctor

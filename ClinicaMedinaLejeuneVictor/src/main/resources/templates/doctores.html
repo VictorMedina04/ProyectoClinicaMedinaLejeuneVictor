@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Doctores</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+		crossorigin="anonymous"></script>
+
+</head>
+
+<body>
+
+	<div sec:authorize="hasRole('ROLE_ADMIN')">
+
+		<nav th:replace="~{fragmentos/menu::menu}"></nav>
+
+	</div>
+
+	<div sec:authorize="hasRole('ROLE_DOCTOR')">
+
+		<nav th:replace="~{fragmentos/menu3::menu3}"></nav>
+
+	</div>
+	<div sec:authorize="hasRole('ROLE_CLIENTE')">
+
+		<nav th:replace="~{fragmentos/menu4::menu4}"></nav>
+
+	</div>
+
+	<div sec:authorize="isAnonymous()">
+
+		<nav th:replace="~{fragmentos/menu2::menu2}"></nav>
+
+	</div>
+	<!-- Búsqueda -->
+	<div class="container my-4">
+		<div class="input-group">
+			<input id="search-input" type="search" class="form-control" placeholder="Nombre,apellido,departamento">
+			<button id="search-button" class="btn btn-primary" type="button">Buscar</button>
+		</div>
+	</div>
+
+	<!-- Cartas de doctores -->
+	<div class="container">
+		<div class="row">
+
+			<div class="col-md-4">
+				<div class="card mb-4">
+					<div class="card-body">
+						<h5 class="card-title">Doctor Nombre Apellido</h5>
+						<p class="card-text">Especialidad: Especialidad del doctor</p>
+						<p class="card-text">Departamento: departamento</p>
+						<p class="card-text">Mail:asf@afaf.com</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<footer th:replace="~{fragmentos/pie::pie}"></footer>
+
+
+</body>
+
+</html>

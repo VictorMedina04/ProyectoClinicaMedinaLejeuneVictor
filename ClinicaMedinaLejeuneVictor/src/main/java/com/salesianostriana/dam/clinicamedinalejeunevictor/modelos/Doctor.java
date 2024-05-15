@@ -28,6 +28,10 @@ import lombok.experimental.SuperBuilder;
 @EqualsAndHashCode(callSuper = true)
 public class Doctor extends Usuario {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private double salario;
 	private boolean indJefe;
 

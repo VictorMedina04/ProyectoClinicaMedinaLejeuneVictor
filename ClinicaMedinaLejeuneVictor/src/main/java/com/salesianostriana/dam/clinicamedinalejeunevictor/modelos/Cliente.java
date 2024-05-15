@@ -28,6 +28,10 @@ import lombok.experimental.SuperBuilder;
 @EqualsAndHashCode(callSuper = true)
 public class Cliente extends Usuario {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	@ManyToOne
 	@JoinColumn(foreignKey = @ForeignKey(name = "fk_cliente_seguro"))
 	private Seguro seguro;

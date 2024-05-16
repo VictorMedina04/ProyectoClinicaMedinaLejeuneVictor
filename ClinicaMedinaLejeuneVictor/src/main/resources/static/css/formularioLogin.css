@@ -30,6 +30,19 @@
             background-color: #f0f8ff;
             border: 1px solid #ccc;
 
+<<<<<<< HEAD
+=======
+        }
+
+        input[type="submit"] {
+            width: 100%;
+            padding: 15px;
+            background-color: #87ceeb;
+            border: none;
+            border-radius: 5px;
+            color: #fff;
+            font-size: 16px;
+>>>>>>> 2f67259ca68c4f2194ebbd1c5e763645dcfd391c
         }
 
         input[type="submit"] {

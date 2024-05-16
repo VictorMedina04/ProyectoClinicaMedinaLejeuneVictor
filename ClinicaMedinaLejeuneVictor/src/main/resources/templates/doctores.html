@@ -49,13 +49,13 @@
 	<div class="container">
 		<div class="row">
 
-			<div class="col-md-4">
+			<div class="col-md-4" th:each="doctor : ${doctores}">
 				<div class="card mb-4">
 					<div class="card-body">
-						<h5 class="card-title">Doctor Nombre Apellido</h5>
-						<p class="card-text">Especialidad: Especialidad del doctor</p>
-						<p class="card-text">Departamento: departamento</p>
-						<p class="card-text">Mail:asf@afaf.com</p>
+						<h5 class="card-title" th:text="${doctor.nombre}">Nombre:nombre</h5>
+						<h5 class="card-title" th:text="${doctor.apellidos}">Apellido:apellido</h5>
+						<p class="card-text" th:text="${doctor.departamento.especialidad}">Especialidad:especialidad</p>
+						<p class="card-text" th:text="${doctor.gmail}">Mail:gmail</p>
 					</div>
 				</div>
 			</div>
@@ -63,7 +63,6 @@
 	</div>
 
 	<footer th:replace="~{fragmentos/pie::pie}"></footer>
-
 
 </body>
 

@@ -73,4 +73,15 @@ public class AdminControlador {
 		return "redirect:/admin/mostrarDoctores";
 	}
 
+	// borrar doctor
+	@GetMapping("/borrarDoctor/{id}")
+	public String borrarDoctor(@PathVariable("id") Long id) {
+
+		Optional<Doctor> borrarDoctor = doctorServicio.findById(id);
+
+		doctorServicio.delete(borrarDoctor.get());
+
+		return "redirect:/admin/mostrarDoctores";
+	}
+
 }

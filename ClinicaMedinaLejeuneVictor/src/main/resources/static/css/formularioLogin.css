@@ -1,6 +1,5 @@
-
-
         body {
+
             font-family: Arial, sans-serif;
             background-color: #f0f8ff;
             margin: 0;
@@ -30,7 +29,6 @@
             font-size: 16px;
             background-color: #f0f8ff;
             border: 1px solid #ccc;
-
         }
 
         input[type="submit"] {
@@ -41,4 +39,5 @@
             border-radius: 5px;
             color: #fff;
             font-size: 16px;
+
         }

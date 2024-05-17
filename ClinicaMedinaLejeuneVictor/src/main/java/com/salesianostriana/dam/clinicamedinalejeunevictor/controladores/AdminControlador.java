@@ -21,7 +21,7 @@ public class AdminControlador {
 
 	@Autowired
 	private DoctorServicio doctorServicio;
-	
+
 	@Autowired
 	private DepartamentoServicio departamentoServicio;
 
@@ -30,7 +30,8 @@ public class AdminControlador {
 		model.addAttribute("doctores", doctorServicio.findAll());
 		return "admin/tablaDoctores";
 	}
-	
+
+	// formulario doctor
 	@GetMapping("/nuevoDoctor")
 	public String mostrarFormularioDoctores(Model model) {
 
@@ -41,6 +42,7 @@ public class AdminControlador {
 		return "admin/formularioDoctor";
 	}
 
+	// insertar doctor
 	@PostMapping("/nuevoDoctor/submit")
 	public String postMethodName(@ModelAttribute("doctor") Doctor doctor) {
 

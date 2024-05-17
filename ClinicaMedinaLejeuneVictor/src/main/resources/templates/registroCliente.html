@@ -20,11 +20,12 @@
 		<div class="row justify-content-center">
 			<div class="col-md-8">
 
-				<form method="post" th:action="@{/nuevoCliente/submit}" th:object="${clienteForm}" class="needs-validation"
-					novalidate>
+				<form method="post" th:action="@{/nuevoCliente/submit}" th:object="${clienteForm}"
+					class="needs-validation" novalidate>
 
 					<div class="row mb-3">
 						<div class="col-md-6">
+
 							<label for="nombre" class="form-label">Nombre</label>
 							<input type="text" class="form-control" name="nombre" id="nombre" placeholder="Nombre"
 								th:field="*{nombre}" required>
@@ -42,17 +43,17 @@
 
 					<div class="row mb-3">
 						<div class="col-md-6">
-							
+
 							<label for="dni" class="form-label">DNI</label>
 							<input type="text" class="form-control" name="dni" id="dni" th:field="*{dni}"
 								placeholder="12345678A" pattern="[0-9]{8}[A-Za-z]{1}" required>
-							
+
 							<div class="valid-feedback">Valido.</div>
 							<div class="invalid-feedback">Por favor rellena este campo con 8 números seguidos de una
 								letra.</div>
 						</div>
 						<div class="col-md-6">
-							
+
 							<label for="usuario" class="form-label">Nombre de Usuario</label>
 							<input type="text" class="form-control" name="usuario" th:field="*{username}" id="usuario"
 								placeholder="Usuario" required>
@@ -106,10 +107,6 @@
 			</div>
 		</div>
 	</div>
-
-
-
-
 </body>
 
 </html>

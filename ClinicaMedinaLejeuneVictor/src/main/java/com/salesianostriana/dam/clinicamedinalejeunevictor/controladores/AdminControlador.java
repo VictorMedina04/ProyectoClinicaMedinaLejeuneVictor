@@ -226,6 +226,23 @@ public class AdminControlador {
 
 			return "redirect:/admin/mostrarDepartamentos";
 		}
+		// formulario para editar departamento
+		@GetMapping("/editarDepartamento/{id}")
+		public String mostrarFormularioEdicionDepartamento(@PathVariable("id") Long id, Model model) {
+
+			Optional<Departamento> editarDepartamento = departamentoServicio.findById(id);
+
+			model.addAttribute("departamento", editarDepartamento.get());
+
+			return "admin/formularioDepartamento";
+		}
+
+		// confirmar edicion departamento
+		@PostMapping("/editarDepartamento/submit")
+		public String procesarFormularioEdicionDepartamento(@ModelAttribute("departamento") Departamento departamento) {
+			departamentoServicio.edit(departamento);
+			return "redirect:/admin/mostrarDepartamentos";
+		}
 
 
 }

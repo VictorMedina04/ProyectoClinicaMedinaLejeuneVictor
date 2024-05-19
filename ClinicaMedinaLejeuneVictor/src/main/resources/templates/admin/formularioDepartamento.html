@@ -16,7 +16,7 @@
 <body>
 
     <div class="container mt-5">
-		<form method="post" th:action="@{/admin/nuevoDepartamento/submit}" 
+		<form method="post" th:action="${departamento.idDepartamento != 0} ? @{/admin/editarDepartamento/submit} : @{/admin/nuevoDepartamento/submit}" 
 				th:object="${departamento}" class="needs-validation" novalidate>
 				<input th:if="${departamento.idDepartamento!= 0}" type="hidden" name="id" th:field="*{idDepartamento}" />
             <div class="mb-3">

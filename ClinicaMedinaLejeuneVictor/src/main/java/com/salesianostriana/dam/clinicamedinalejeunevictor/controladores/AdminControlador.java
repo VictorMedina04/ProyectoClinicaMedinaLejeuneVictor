@@ -120,4 +120,23 @@ public class AdminControlador {
 
 			return "redirect:/admin/mostrarClientes";
 		}
+		// formulario para editar cliente
+		@GetMapping("/editarCliente/{id}")
+		public String mostrarFormularioEdicionCliente(@PathVariable("id") Long id, Model model) {
+
+			Optional<Cliente> editarCliente = clienteServicio.findById(id);
+			List<Seguro> seguros = seguroServicio.findAll();
+
+			model.addAttribute("seguros", seguros);
+			model.addAttribute("cliente", editarCliente.get());
+
+			return "admin/formularioCliente";
+		}
+
+		// confirmar edicion cliente
+		@PostMapping("/editarCliente/submit")
+		public String procesarFormularioEdicionCliente(@ModelAttribute("cliente") Cliente cliente) {
+			clienteServicio.edit(cliente);
+			return "redirect:/admin/mostrarClientes";
+		}
 }

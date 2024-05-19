@@ -139,4 +139,14 @@ public class AdminControlador {
 			clienteServicio.edit(cliente);
 			return "redirect:/admin/mostrarClientes";
 		}
+		// borrar Cliente
+		@GetMapping("/borrarCliente/{id}")
+		public String borrarCliente(@PathVariable("id") Long id) {
+
+			Optional<Cliente> borrarCliente = clienteServicio.findById(id);
+
+			clienteServicio.delete(borrarCliente.get());
+
+			return "redirect:/admin/mostrarClientes";
+		}
 }

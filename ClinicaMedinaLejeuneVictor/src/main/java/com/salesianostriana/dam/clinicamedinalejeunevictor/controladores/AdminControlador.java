@@ -203,5 +203,29 @@ public class AdminControlador {
 
 			return "redirect:/admin/mostrarSeguros";
 		}
+		@GetMapping("/mostrarDepartamentos")
+		public String departamentos(Model model) {
+			model.addAttribute("departamentos", departamentoServicio.findAll());
+			return "admin/tablaDepartamentos";
+		}
+
+		// formulario departamento
+		@GetMapping("/nuevoDepartamento")
+		public String mostrarFormularioDepartamentos(Model model) {
+
+			model.addAttribute("departamento", new Departamento());
+
+			return "admin/formularioDepartamento";
+		}
+
+		// insertar departamento
+		@PostMapping("/nuevoDepartamento/submit")
+		public String nuevoDepartamento(@ModelAttribute("departamento") Departamento departamento) {
+
+			departamentoServicio.save(departamento);
+
+			return "redirect:/admin/mostrarDepartamentos";
+		}
+
 
 }

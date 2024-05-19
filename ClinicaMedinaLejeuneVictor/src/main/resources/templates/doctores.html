@@ -16,53 +16,58 @@
 <body>
 
 	<div sec:authorize="hasRole('ROLE_ADMIN')">
-
-		<nav th:replace="~{fragmentos/menu::menu}"></nav>
-
-	</div>
-
-	<div sec:authorize="hasRole('ROLE_DOCTOR')">
-
-		<nav th:replace="~{fragmentos/menu3::menu3}"></nav>
-
-	</div>
-	<div sec:authorize="hasRole('ROLE_CLIENTE')">
-
-		<nav th:replace="~{fragmentos/menu4::menu4}"></nav>
-
-	</div>
-
-	<div sec:authorize="isAnonymous()">
-
-		<nav th:replace="~{fragmentos/menu2::menu2}"></nav>
-
-	</div>
-	<!-- Búsqueda -->
-	<div class="container my-4">
-		<div class="input-group">
-			<input id="search-input" type="search" class="form-control" placeholder="Nombre,apellido,departamento">
-			<button id="search-button" class="btn btn-primary" type="button">Buscar</button>
+	
+			<nav th:replace="~{fragmentos/menu::menu}"></nav>
+	
 		</div>
-	</div>
-
-	<!-- Cartas de doctores -->
-	<div class="container">
-		<div class="row">
-
-			<div class="col-md-4" th:each="doctor : ${doctores}">
-				<div class="card mb-4">
-					<div class="card-body">
-						<h5 class="card-title" th:text="${doctor.nombre}">Nombre:nombre</h5>
-						<h5 class="card-title" th:text="${doctor.apellidos}">Apellido:apellido</h5>
-						<p class="card-text" th:text="${doctor.departamento.especialidad}">Especialidad:especialidad</p>
-						<p class="card-text" th:text="${doctor.gmail}">Mail:gmail</p>
+	
+		<div sec:authorize="hasRole('ROLE_DOCTOR')">
+	
+			<nav th:replace="~{fragmentos/menu3::menu3}"></nav>
+	
+		</div>
+		<div sec:authorize="hasRole('ROLE_CLIENTE')">
+	
+			<nav th:replace="~{fragmentos/menu4::menu4}"></nav>
+	
+		</div>
+	
+		<div sec:authorize="isAnonymous()">
+	
+			<nav th:replace="~{fragmentos/menu2::menu2}"></nav>
+	
+		</div>
+	
+	
+		<form class="container my-4" th:action="@{/buscarDoctor}" method="get">
+			<div class="input-group">
+				<input id="search-input" type="search" class="form-control"
+					placeholder="Nombre doctor" aria-label="Search" name="busqueda">
+				<button id="search-button" class="btn btn-primary" type="button">Buscar</button>
+			</div>
+		</form>
+		
+		
+	
+		<!-- Cartas de doctores -->
+		<div class="container">
+			<div class="row">
+	
+				<div class="col-md-4" th:each="doctor : ${doctores}">
+					<div class="card mb-4">
+						<div class="card-body">
+							<h5 class="card-title" th:text="${doctor.nombre}">Nombre:nombre</h5>
+							<h5 class="card-title" th:text="${doctor.apellidos}">Apellido:apellido</h5>
+							<p class="card-text" th:text="${doctor.departamento.especialidad}">Especialidad:especialidad</p>
+							<p class="card-text" th:text="${doctor.gmail}">Mail:gmail</p>
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-	</div>
+	
+		<footer th:replace="~{fragmentos/pie::pie}"></footer>
 
-	<footer th:replace="~{fragmentos/pie::pie}"></footer>
 
 </body>
 

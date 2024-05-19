@@ -192,4 +192,16 @@ public class AdminControlador {
 			seguroServicio.edit(seguro);
 			return "redirect:/admin/mostrarSeguros";
 		}
+		
+		// borrar seguro
+		@GetMapping("/borrarSeguro/{id}")
+		public String borrarSeguro(@PathVariable("id") Long id) {
+
+			Optional<Seguro> borrarSeguro = seguroServicio.findById(id);
+
+			seguroServicio.delete(borrarSeguro.get());
+
+			return "redirect:/admin/mostrarSeguros";
+		}
+
 }

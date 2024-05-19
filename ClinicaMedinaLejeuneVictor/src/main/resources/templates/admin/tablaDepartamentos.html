@@ -25,6 +25,7 @@
                     <th>ID Departamento</th>
                     <th>Especialidad</th>
 					<th>Editar</th>
+					<th>Borrar</th>
                     
                 </tr>
             </thead>
@@ -33,6 +34,7 @@
                     <td th:text="${departamento.idDepartamento}"></td>
                     <td th:text="${departamento.especialidad}"></td>
 					<td><a th:href="@{/admin/editarDepartamento/{id}(id=${departamento.idDepartamento})}">Editar</a></td>
+					<td><a th:href="@{/admin/borrarDepartamento/{id}(id=${departamento.idDepartamento})}">Borrar</a></td>
               
                 </tr>
             </tbody>

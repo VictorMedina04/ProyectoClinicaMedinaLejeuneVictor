@@ -243,6 +243,16 @@ public class AdminControlador {
 			departamentoServicio.edit(departamento);
 			return "redirect:/admin/mostrarDepartamentos";
 		}
+		
+		// borrar departamento
+		@GetMapping("/borrarDepartamento/{id}")
+		public String borrarDepartamento(@PathVariable("id") Long id) {
 
+			Optional<Departamento> borrarDepartamento = departamentoServicio.findById(id);
+
+			departamentoServicio.delete(borrarDepartamento.get());
+
+			return "redirect:/admin/mostrarDepartamentos";
+		}
 
 }

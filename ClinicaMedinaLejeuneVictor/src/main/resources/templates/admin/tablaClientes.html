@@ -33,6 +33,7 @@
 					<th>Email</th>
 					<th>Seguro</th>
 					<th>Editar</th>
+					<th>Borrar</th>
 
 				</tr>
 			</thead>
@@ -46,6 +47,7 @@
 					<td th:text="${cliente.gmail}"></td>
 					<td th:text="${cliente.seguro.nombre}"></td>
 					<td><a th:href="@{/admin/editarCliente/{id}(id=${cliente.id})}">Editar</a></td>
+					<td><a th:href="@{/admin/borrarCliente/{id}(id=${cliente.id})}">Borrar</a></td>
 				</tr>
 			</tbody>
 		</table>

@@ -174,4 +174,22 @@ public class AdminControlador {
 
 			return "redirect:/admin/mostrarSeguros";
 		}
+		
+		// formulario para editar seguro
+		@GetMapping("/editarSeguro/{id}")
+		public String mostrarFormularioEdicionSeguro(@PathVariable("id") Long id, Model model) {
+
+			Optional<Seguro> editarSeguro = seguroServicio.findById(id);
+
+			model.addAttribute("seguro", editarSeguro.get());
+
+			return "admin/formularioSeguro";
+		}
+
+		// confirmar edicion seguro
+		@PostMapping("/editarSeguro/submit")
+		public String procesarFormularioEdicionSeguro(@ModelAttribute("seguro") Seguro seguro) {
+			seguroServicio.edit(seguro);
+			return "redirect:/admin/mostrarSeguros";
+		}
 }

@@ -16,7 +16,7 @@
 <body>
 
     <div class="container mt-5">
-		<form method="post" th:action="@{/admin/nuevoSeguro/submit}" 
+		<form method="post" th:action="${seguro.idSeguro != 0} ? @{/admin/editarSeguro/submit} : @{/admin/nuevoSeguro/submit}"
 		th:object="${seguro}" class="needs-validation" novalidate>
            
 		<input th:if="${seguro.idSeguro != 0}" type="hidden" name="id" th:field="*{idSeguro}" />

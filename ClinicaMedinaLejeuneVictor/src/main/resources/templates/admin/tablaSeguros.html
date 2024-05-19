@@ -28,7 +28,7 @@
 	                    <th>Nombre</th>
 	                    <th>Precio</th>
 	                    <th>Descripción</th>
-						
+						<th>Editar</th>
 	                </tr>
 	            </thead>
 	            <tbody>
@@ -37,6 +37,7 @@
 	                    <td th:text="${seguro.nombre}"></td>
 	                    <td th:text="${seguro.precio}"></td>
 	                    <td th:text="${seguro.descripcion}"></td>
+						<td><a th:href="@{/admin/editarSeguro/{id}(id=${seguro.idSeguro})}">Editar</a></td>
 	                </tr>
 	            </tbody>
 	        </table>

@@ -21,7 +21,7 @@
 			<div class="col-md-8">
 
 				<form method="post"
-					th:action="@{/admin/nuevoCliente/submit}"
+				th:action="${cliente.id != 0} ? @{/admin/editarCliente/submit} : @{/admin/nuevoCliente/submit}"
 					th:object="${cliente}" class="needs-validation" novalidate>
 
 

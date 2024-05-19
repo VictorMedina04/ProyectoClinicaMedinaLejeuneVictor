@@ -12,10 +12,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.salesianostriana.dam.clinicamedinalejeunevictor.modelos.Cliente;
 import com.salesianostriana.dam.clinicamedinalejeunevictor.modelos.Departamento;
 import com.salesianostriana.dam.clinicamedinalejeunevictor.modelos.Doctor;
+import com.salesianostriana.dam.clinicamedinalejeunevictor.modelos.Seguro;
+import com.salesianostriana.dam.clinicamedinalejeunevictor.servicios.ClienteServicio;
 import com.salesianostriana.dam.clinicamedinalejeunevictor.servicios.DepartamentoServicio;
 import com.salesianostriana.dam.clinicamedinalejeunevictor.servicios.DoctorServicio;
+import com.salesianostriana.dam.clinicamedinalejeunevictor.servicios.SeguroServicio;
 
 @Controller
 @RequestMapping("/admin")
@@ -26,6 +30,12 @@ public class AdminControlador {
 
 	@Autowired
 	private DepartamentoServicio departamentoServicio;
+	
+	@Autowired
+	private ClienteServicio clienteServicio;
+	
+	@Autowired
+	private SeguroServicio seguroServicio;
 
 	@GetMapping("/mostrarDoctores")
 	public String doctores(Model model) {
@@ -84,4 +94,30 @@ public class AdminControlador {
 		return "redirect:/admin/mostrarDoctores";
 	}
 
+	// mostrar tabla clientes
+		@GetMapping("/mostrarClientes")
+		public String clientes(Model model) {
+			model.addAttribute("clientes", clienteServicio.findAll());
+			return "admin/tablaClientes";
+		}
+
+		// formulario cliente
+		@GetMapping("/nuevoCliente")
+		public String mostrarFormularioClientes(Model model) {
+
+			List<Seguro> seguros = seguroServicio.findAll();
+			model.addAttribute("seguros", seguros);
+			model.addAttribute("cliente", new Cliente());
+
+			return "admin/formularioCliente";
+		}
+
+		// insertar cliente
+		@PostMapping("/nuevoCliente/submit")
+		public String nuevoCliente(@ModelAttribute("cliente") Cliente cliente) {
+
+			clienteServicio.save(cliente);
+
+			return "redirect:/admin/mostrarClientes";
+		}
 }

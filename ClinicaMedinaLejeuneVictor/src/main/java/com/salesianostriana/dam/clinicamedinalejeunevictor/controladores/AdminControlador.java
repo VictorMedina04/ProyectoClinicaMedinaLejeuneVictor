@@ -149,4 +149,29 @@ public class AdminControlador {
 
 			return "redirect:/admin/mostrarClientes";
 		}
+		
+		// mostrar tabla seguros
+		@GetMapping("/mostrarSeguros")
+		public String seguros(Model model) {
+			model.addAttribute("seguros", seguroServicio.findAll());
+			return "admin/tablaSeguros";
+		}
+
+		// formulario seguro
+		@GetMapping("/nuevoSeguro")
+		public String mostrarFormularioSeguros(Model model) {
+
+			model.addAttribute("seguro", new Seguro());
+
+			return "admin/formularioSeguro";
+		}
+
+		// insertar seguro
+		@PostMapping("/nuevoSeguro/submit")
+		public String nuevoSeguro(@ModelAttribute("seguro") Seguro seguro) {
+
+			seguroServicio.save(seguro);
+
+			return "redirect:/admin/mostrarSeguros";
+		}
 }

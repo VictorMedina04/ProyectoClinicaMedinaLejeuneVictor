@@ -13,7 +13,7 @@ INSERT INTO seguro(ID_SEGURO, NOMBRE, PRECIO, DESCRIPCION) VALUES(2,'Seguro plat
 
 INSERT INTO seguro(ID_SEGURO, NOMBRE, PRECIO, DESCRIPCION) VALUES(3, 'Seguro oro', 145.99, 'Seguro que cubre todos los servicios');
 
-
+ALTER SEQUENCE seguro_seq RESTART WITH (53);
 
 INSERT INTO usuario(ID, USERNAME, NOMBRE, APELLIDOS, GMAIL, PASSWORD, DNI, ES_ADMIN, ES_DOCTOR) VALUES(1,'admin','Paco','Gomez','pacogomez@gmail.com','{bcrypt}$2y$10$gk.yHcB4aPtgs6zNYV6ve.4cgKMozKboCnIVj7a01ckM7sae9nXkW','12345678A',true,false);
 

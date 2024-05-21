@@ -26,9 +26,14 @@ public class MainControlador {
 		return "inicioSinLog";
 	}
 
-	@GetMapping("/login")
-	public String formLogin() {
-		return "login";
+	@GetMapping("/novedades")
+	public String novedades() {
+		return "novedades";
+	}
+
+	@GetMapping("/nuestrosLogros")
+	public String nuestrosLogros() {
+		return "nuestrosLogros";
 	}
 
 	@GetMapping("/doctores")
@@ -43,7 +48,11 @@ public class MainControlador {
 		return "doctores";
 	}
 
-	// se registran todos los que quieran pero como clientes
+	@GetMapping("/login")
+	public String formLogin() {
+		return "login";
+	}
+
 	@GetMapping("/nuevoCliente")
 	public String mostrarFormulario(Model model) {
 		model.addAttribute("clienteForm", new Cliente());
@@ -55,4 +64,5 @@ public class MainControlador {
 		clienteServicio.save(cliente);
 		return "redirect:/";
 	}
+
 }

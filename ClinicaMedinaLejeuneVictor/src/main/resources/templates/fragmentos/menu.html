@@ -19,7 +19,7 @@
 		<nav class="navbar navbar-expand-lg navbar-light" style="background-color: #CAE8FF">
 			<div class="container">
 				<a class="navbar-brand">
-					<img src="/img/Clinica Santa Victoria Logo.png" width="500px"
+					<img th:src="@{/img/Clinica Santa Victoria Logo.png}" width="500px"
 						alt="Logo de la Clínica Santa Victoria">
 				</a>
 				<button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -29,20 +29,25 @@
 				</button>
 
 				<div class="collapse navbar-collapse" id="navbarSupportedContent">
-					<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+					<ul class="navbar-nav me-auto mx-3 mb-2 mb-lg-0">
 						<li class="nav-item">
 							<a class="nav-link active" aria-current="page" href="../inicioSinLog.html"
-								th:href="@{/}">Inicio</a>
+								th:href="@{/}">Quienes somos</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="../nuestrosLogros.html" th:href="@{/nuestrosLogros}">Nuestros
+								logros</a>
+						</li>
+
+
+						<li class="nav-item">
+							<a class="nav-link" href="../novedades.html" th:href="@{/novedades}">Novedades</a>
 						</li>
 						<li class="nav-item">
 							<a class="nav-link" href="../doctores.html" th:href="@{/doctores}">Doctores</a>
 						</li>
-						<li class="nav-item">
-							<a class="nav-link" href="#">Citas</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link" href="#">Seguros</a>
-						</li>
+
+
 						<li class="nav-item dropdown">
 							<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
 								data-bs-toggle="dropdown" aria-expanded="false">
@@ -52,8 +57,9 @@
 								<li><a class="dropdown-item" th:href="@{/admin/mostrarClientes}">Clientes</a></li>
 								<li><a class="dropdown-item" th:href="@{/admin/mostrarDoctores}">Doctores</a></li>
 								<li><a class="dropdown-item" th:href="@{/admin/mostrarSeguros}">Seguros</a></li>
-								<li><a class="dropdown-item" th:href="@{/admin/mostrarDepartamentos}">Departamentos</a></li>
-								<li><a class="dropdown-item" href="#">Citas</a></li>
+								<li><a class="dropdown-item" th:href="@{/admin/mostrarCitas}">Citas</a></li>
+								<li><a class="dropdown-item" th:href="@{/admin/mostrarDepartamentos}">Departamentos</a>
+								</li>
 							</ul>
 						</li>
 						<li class="nav-item">

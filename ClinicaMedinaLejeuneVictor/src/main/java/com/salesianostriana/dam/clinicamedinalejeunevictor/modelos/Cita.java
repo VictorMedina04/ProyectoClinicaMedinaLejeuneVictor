@@ -24,18 +24,19 @@ public class Cita {
 
 	@ManyToOne
 	@MapsId("idDoctor")
-	@JoinColumn(name = "idDoctor")
+	@JoinColumn(name = "id_doctor")
 	private Doctor doctor;
 
 	@ManyToOne
 	@MapsId("idCliente")
-	@JoinColumn(name = "idCliente")
+	@JoinColumn(name = "id_cliente")
 	private Cliente cliente;
 
 	@DateTimeFormat(pattern = "MM-dd-HH")
 	private LocalDateTime fechaInicio;
 	@DateTimeFormat(pattern = "MM-dd-HH")
 	private LocalDateTime fechaFin;
+	private double precioCita;
 	private boolean especial;
 
 	// Helper doctor

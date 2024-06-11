@@ -1,5 +1,6 @@
 package com.salesianostriana.dam.clinicamedinalejeunevictor.seguridad;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -18,8 +19,11 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class SecurityConfig {
 
-	private final UserDetailsService userDetailsService;
-	private final PasswordEncoder passwordEncoder;
+	@Autowired
+	private UserDetailsService userDetailsService;
+
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 
 	@Bean
 	DaoAuthenticationProvider daoAuthenticationProvider() {
@@ -41,7 +45,7 @@ public class SecurityConfig {
 	@Bean
 	SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		http.authorizeHttpRequests((authz) -> authz
-				.requestMatchers("/css/**", "/js/**", "/h2-console/**", "/audio/**", "img/**").permitAll()
+				.requestMatchers("/css/**", "/js/**", "/audio/**", "img/**", "/error/**", "/h2-console/**").permitAll()
 
 				.requestMatchers("/cliente/**").hasAnyRole("CLIENTE")
 
@@ -52,12 +56,14 @@ public class SecurityConfig {
 				.anyRequest().permitAll())
 
 				.formLogin((loginz) -> loginz.loginPage("/login").defaultSuccessUrl("/").permitAll())
-				.logout((logoutz) -> logoutz.logoutUrl("/logout").logoutSuccessUrl("/").permitAll());
+
+				.logout((logoutz) -> logoutz.logoutUrl("/logout").logoutSuccessUrl("/").permitAll())
+
+				.exceptionHandling(exceptionHandling -> exceptionHandling.accessDeniedPage("/error"));
 
 		http.csrf(csrfz -> csrfz.disable());
 		http.headers(headersz -> headersz.frameOptions(frameOptionsz -> frameOptionsz.disable()));
 
 		return http.build();
 	}
-
 }

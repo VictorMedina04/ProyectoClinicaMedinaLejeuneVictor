@@ -12,10 +12,11 @@ import com.salesianostriana.dam.clinicamedinalejeunevictor.servicios.serviciosba
 @Service
 public class DoctorServicio extends BaseServiceImpl<Doctor, Long, DoctorRepositorio> {
 
-	public List<Doctor> buscarPorNombre(String busqueda) {
-		List<Doctor> result = this.repository.findByNombreContainsIgnoreCase(busqueda);
+	public List<Doctor> buscarPorNombreYApellido(String busqueda) {
+		List<Doctor> result = this.repository.findByNombreContainsIgnoreCaseOrApellidosContainsIgnoreCase(busqueda,
+				busqueda);
 		if (result.isEmpty()) {
-			throw new DoctorNotFoundException("No hay productos con ese criterio");
+			throw new DoctorNotFoundException("No hay doctores con ese criterio");
 		}
 		return result;
 	}

@@ -55,8 +55,10 @@ public class MainControlador {
 	}
 
 	@GetMapping("/buscarDoctor")
-	public String buscarDoctorPorNombre(Model model, @RequestParam("busqueda") String busqueda) {
-		model.addAttribute("doctores", doctorServicio.buscarPorNombre(busqueda));
+	public String buscarDoctorPorNombreYApellido(Model model, @RequestParam("busqueda") String busqueda) {
+
+		model.addAttribute("doctores", doctorServicio.buscarPorNombreYApellido(busqueda));
+
 		return "doctores";
 	}
 

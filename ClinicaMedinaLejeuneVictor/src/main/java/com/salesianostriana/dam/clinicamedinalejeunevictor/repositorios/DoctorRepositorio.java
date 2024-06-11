@@ -8,6 +8,6 @@ import com.salesianostriana.dam.clinicamedinalejeunevictor.modelos.Doctor;
 
 public interface DoctorRepositorio extends JpaRepository<Doctor, Long> {
 
-	List<Doctor> findByNombreContainsIgnoreCase(String nombre);
+	List<Doctor> findByNombreContainsIgnoreCaseOrApellidosContainsIgnoreCase(String nombre, String apellidos);
 
 }

@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.salesianostriana.dam.clinicamedinalejeunevictor.modelos.Cliente;
 import com.salesianostriana.dam.clinicamedinalejeunevictor.modelos.Departamento;
@@ -20,6 +22,7 @@ import com.salesianostriana.dam.clinicamedinalejeunevictor.servicios.ClienteServ
 import com.salesianostriana.dam.clinicamedinalejeunevictor.servicios.DepartamentoServicio;
 import com.salesianostriana.dam.clinicamedinalejeunevictor.servicios.DoctorServicio;
 import com.salesianostriana.dam.clinicamedinalejeunevictor.servicios.SeguroServicio;
+import com.salesianostriana.dam.clinicamedinalejeunevictor.servicios.UsuarioServicio;
 
 @Controller
 @RequestMapping("/admin")
@@ -29,14 +32,22 @@ public class AdminControlador {
 	private DoctorServicio doctorServicio;
 
 	@Autowired
-	private DepartamentoServicio departamentoServicio;
-	
-	@Autowired
 	private ClienteServicio clienteServicio;
-	
+
+	@Autowired
+	private UsuarioServicio usuarioServicio;
+
+	@Autowired
+	private DepartamentoServicio departamentoServicio;
+
 	@Autowired
 	private SeguroServicio seguroServicio;
 
+	@Autowired
+	private PasswordEncoder encoder;
+
+	// Cosas de doctores
+	// mostrar tabla doctores
 	@GetMapping("/mostrarDoctores")
 	public String doctores(Model model) {
 		model.addAttribute("doctores", doctorServicio.findAll());
@@ -56,9 +67,20 @@ public class AdminControlador {
 
 	// insertar doctor
 	@PostMapping("/nuevoDoctor/submit")
-	public String postMethodName(@ModelAttribute("doctor") Doctor doctor) {
+	public String nuevoDoctor(@ModelAttribute("doctor") Doctor doctor,
+			@RequestParam(value = "esAdmin", required = false) boolean esAdmin) {
 
-		doctorServicio.save(doctor);
+		doctor.setEsDoctor(true);
+		doctor.setEsAdmin(esAdmin);
+
+		if (usuarioServicio.encontrarPorUsername(doctor.getUsername())) {
+
+			return "errorUsername";
+		}
+
+		usuarioServicio.codificarContrasenya(doctor.getPassword(), doctor);
+
+		usuarioServicio.save(doctor);
 
 		return "redirect:/admin/mostrarDoctores";
 	}
@@ -95,164 +117,168 @@ public class AdminControlador {
 	}
 
 	// mostrar tabla clientes
-		@GetMapping("/mostrarClientes")
-		public String clientes(Model model) {
-			model.addAttribute("clientes", clienteServicio.findAll());
-			return "admin/tablaClientes";
-		}
+	@GetMapping("/mostrarClientes")
+	public String clientes(Model model) {
+		model.addAttribute("clientes", clienteServicio.findAll());
+		return "admin/tablaClientes";
+	}
 
-		// formulario cliente
-		@GetMapping("/nuevoCliente")
-		public String mostrarFormularioClientes(Model model) {
+	// formulario cliente
+	@GetMapping("/nuevoCliente")
+	public String mostrarFormularioClientes(Model model) {
 
-			List<Seguro> seguros = seguroServicio.findAll();
-			model.addAttribute("seguros", seguros);
-			model.addAttribute("cliente", new Cliente());
+		List<Seguro> seguros = seguroServicio.findAll();
+		model.addAttribute("seguros", seguros);
+		model.addAttribute("cliente", new Cliente());
 
-			return "admin/formularioCliente";
-		}
+		return "admin/formularioCliente";
+	}
 
-		// insertar cliente
-		@PostMapping("/nuevoCliente/submit")
-		public String nuevoCliente(@ModelAttribute("cliente") Cliente cliente) {
+	// insertar cliente
+	@PostMapping("/nuevoCliente/submit")
+	public String nuevoCliente(@ModelAttribute("cliente") Cliente cliente) {
 
-			clienteServicio.save(cliente);
+		clienteServicio.save(cliente);
 
-			return "redirect:/admin/mostrarClientes";
-		}
-		// formulario para editar cliente
-		@GetMapping("/editarCliente/{id}")
-		public String mostrarFormularioEdicionCliente(@PathVariable("id") Long id, Model model) {
+		return "redirect:/admin/mostrarClientes";
+	}
 
-			Optional<Cliente> editarCliente = clienteServicio.findById(id);
-			List<Seguro> seguros = seguroServicio.findAll();
+	// formulario para editar cliente
+	@GetMapping("/editarCliente/{id}")
+	public String mostrarFormularioEdicionCliente(@PathVariable("id") Long id, Model model) {
 
-			model.addAttribute("seguros", seguros);
-			model.addAttribute("cliente", editarCliente.get());
+		Optional<Cliente> editarCliente = clienteServicio.findById(id);
+		List<Seguro> seguros = seguroServicio.findAll();
 
-			return "admin/formularioCliente";
-		}
+		model.addAttribute("seguros", seguros);
+		model.addAttribute("cliente", editarCliente.get());
 
-		// confirmar edicion cliente
-		@PostMapping("/editarCliente/submit")
-		public String procesarFormularioEdicionCliente(@ModelAttribute("cliente") Cliente cliente) {
-			clienteServicio.edit(cliente);
-			return "redirect:/admin/mostrarClientes";
-		}
-		// borrar Cliente
-		@GetMapping("/borrarCliente/{id}")
-		public String borrarCliente(@PathVariable("id") Long id) {
+		return "admin/formularioCliente";
+	}
 
-			Optional<Cliente> borrarCliente = clienteServicio.findById(id);
+	// confirmar edicion cliente
+	@PostMapping("/editarCliente/submit")
+	public String procesarFormularioEdicionCliente(@ModelAttribute("cliente") Cliente cliente) {
+		clienteServicio.edit(cliente);
+		return "redirect:/admin/mostrarClientes";
+	}
 
-			clienteServicio.delete(borrarCliente.get());
+	// borrar Cliente
+	@GetMapping("/borrarCliente/{id}")
+	public String borrarCliente(@PathVariable("id") Long id) {
 
-			return "redirect:/admin/mostrarClientes";
-		}
-		
-		// mostrar tabla seguros
-		@GetMapping("/mostrarSeguros")
-		public String seguros(Model model) {
-			model.addAttribute("seguros", seguroServicio.findAll());
-			return "admin/tablaSeguros";
-		}
+		Optional<Cliente> borrarCliente = clienteServicio.findById(id);
 
-		// formulario seguro
-		@GetMapping("/nuevoSeguro")
-		public String mostrarFormularioSeguros(Model model) {
+		clienteServicio.delete(borrarCliente.get());
 
-			model.addAttribute("seguro", new Seguro());
+		return "redirect:/admin/mostrarClientes";
+	}
 
-			return "admin/formularioSeguro";
-		}
+	// mostrar tabla seguros
+	@GetMapping("/mostrarSeguros")
+	public String seguros(Model model) {
+		model.addAttribute("seguros", seguroServicio.findAll());
+		return "admin/tablaSeguros";
+	}
 
-		// insertar seguro
-		@PostMapping("/nuevoSeguro/submit")
-		public String nuevoSeguro(@ModelAttribute("seguro") Seguro seguro) {
+	// formulario seguro
+	@GetMapping("/nuevoSeguro")
+	public String mostrarFormularioSeguros(Model model) {
 
-			seguroServicio.save(seguro);
+		model.addAttribute("seguro", new Seguro());
 
-			return "redirect:/admin/mostrarSeguros";
-		}
-		
-		// formulario para editar seguro
-		@GetMapping("/editarSeguro/{id}")
-		public String mostrarFormularioEdicionSeguro(@PathVariable("id") Long id, Model model) {
+		return "admin/formularioSeguro";
+	}
 
-			Optional<Seguro> editarSeguro = seguroServicio.findById(id);
+	// insertar seguro
+	@PostMapping("/nuevoSeguro/submit")
+	public String nuevoSeguro(@ModelAttribute("seguro") Seguro seguro) {
 
-			model.addAttribute("seguro", editarSeguro.get());
+		seguroServicio.save(seguro);
 
-			return "admin/formularioSeguro";
-		}
+		return "redirect:/admin/mostrarSeguros";
+	}
 
-		// confirmar edicion seguro
-		@PostMapping("/editarSeguro/submit")
-		public String procesarFormularioEdicionSeguro(@ModelAttribute("seguro") Seguro seguro) {
-			seguroServicio.edit(seguro);
-			return "redirect:/admin/mostrarSeguros";
-		}
-		
-		// borrar seguro
-		@GetMapping("/borrarSeguro/{id}")
-		public String borrarSeguro(@PathVariable("id") Long id) {
+	// formulario para editar seguro
+	@GetMapping("/editarSeguro/{id}")
+	public String mostrarFormularioEdicionSeguro(@PathVariable("id") Long id, Model model) {
 
-			Optional<Seguro> borrarSeguro = seguroServicio.findById(id);
+		Optional<Seguro> editarSeguro = seguroServicio.findById(id);
 
-			seguroServicio.delete(borrarSeguro.get());
+		model.addAttribute("seguro", editarSeguro.get());
 
-			return "redirect:/admin/mostrarSeguros";
-		}
-		@GetMapping("/mostrarDepartamentos")
-		public String departamentos(Model model) {
-			model.addAttribute("departamentos", departamentoServicio.findAll());
-			return "admin/tablaDepartamentos";
-		}
+		return "admin/formularioSeguro";
+	}
 
-		// formulario departamento
-		@GetMapping("/nuevoDepartamento")
-		public String mostrarFormularioDepartamentos(Model model) {
+	// confirmar edicion seguro
+	@PostMapping("/editarSeguro/submit")
+	public String procesarFormularioEdicionSeguro(@ModelAttribute("seguro") Seguro seguro) {
+		seguroServicio.edit(seguro);
+		return "redirect:/admin/mostrarSeguros";
+	}
 
-			model.addAttribute("departamento", new Departamento());
+	// borrar seguro
+	@GetMapping("/borrarSeguro/{id}")
+	public String borrarSeguro(@PathVariable("id") Long id) {
 
-			return "admin/formularioDepartamento";
-		}
+		Optional<Seguro> borrarSeguro = seguroServicio.findById(id);
 
-		// insertar departamento
-		@PostMapping("/nuevoDepartamento/submit")
-		public String nuevoDepartamento(@ModelAttribute("departamento") Departamento departamento) {
+		seguroServicio.delete(borrarSeguro.get());
 
-			departamentoServicio.save(departamento);
+		return "redirect:/admin/mostrarSeguros";
+	}
 
-			return "redirect:/admin/mostrarDepartamentos";
-		}
-		// formulario para editar departamento
-		@GetMapping("/editarDepartamento/{id}")
-		public String mostrarFormularioEdicionDepartamento(@PathVariable("id") Long id, Model model) {
+	@GetMapping("/mostrarDepartamentos")
+	public String departamentos(Model model) {
+		model.addAttribute("departamentos", departamentoServicio.findAll());
+		return "admin/tablaDepartamentos";
+	}
 
-			Optional<Departamento> editarDepartamento = departamentoServicio.findById(id);
+	// formulario departamento
+	@GetMapping("/nuevoDepartamento")
+	public String mostrarFormularioDepartamentos(Model model) {
 
-			model.addAttribute("departamento", editarDepartamento.get());
+		model.addAttribute("departamento", new Departamento());
 
-			return "admin/formularioDepartamento";
-		}
+		return "admin/formularioDepartamento";
+	}
 
-		// confirmar edicion departamento
-		@PostMapping("/editarDepartamento/submit")
-		public String procesarFormularioEdicionDepartamento(@ModelAttribute("departamento") Departamento departamento) {
-			departamentoServicio.edit(departamento);
-			return "redirect:/admin/mostrarDepartamentos";
-		}
-		
-		// borrar departamento
-		@GetMapping("/borrarDepartamento/{id}")
-		public String borrarDepartamento(@PathVariable("id") Long id) {
+	// insertar departamento
+	@PostMapping("/nuevoDepartamento/submit")
+	public String nuevoDepartamento(@ModelAttribute("departamento") Departamento departamento) {
 
-			Optional<Departamento> borrarDepartamento = departamentoServicio.findById(id);
+		departamentoServicio.save(departamento);
 
-			departamentoServicio.delete(borrarDepartamento.get());
+		return "redirect:/admin/mostrarDepartamentos";
+	}
 
-			return "redirect:/admin/mostrarDepartamentos";
-		}
+	// formulario para editar departamento
+	@GetMapping("/editarDepartamento/{id}")
+	public String mostrarFormularioEdicionDepartamento(@PathVariable("id") Long id, Model model) {
+
+		Optional<Departamento> editarDepartamento = departamentoServicio.findById(id);
+
+		model.addAttribute("departamento", editarDepartamento.get());
+
+		return "admin/formularioDepartamento";
+	}
+
+	// confirmar edicion departamento
+	@PostMapping("/editarDepartamento/submit")
+	public String procesarFormularioEdicionDepartamento(@ModelAttribute("departamento") Departamento departamento) {
+		departamentoServicio.edit(departamento);
+		return "redirect:/admin/mostrarDepartamentos";
+	}
+
+	// borrar departamento
+	@GetMapping("/borrarDepartamento/{id}")
+	public String borrarDepartamento(@PathVariable("id") Long id) {
+
+		Optional<Departamento> borrarDepartamento = departamentoServicio.findById(id);
+
+		departamentoServicio.delete(borrarDepartamento.get());
+
+		return "redirect:/admin/mostrarDepartamentos";
+	}
 
 }

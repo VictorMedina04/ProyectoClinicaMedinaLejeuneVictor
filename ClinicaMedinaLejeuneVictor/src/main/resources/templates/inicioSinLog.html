@@ -10,10 +10,9 @@
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
 		crossorigin="anonymous"></script>
-
 </head>
 
-<body>
+<body class="d-flex flex-column justify-content-between min-vh-100">
 
 
 	<div sec:authorize="hasRole('ROLE_ADMIN')">
@@ -40,40 +39,17 @@
 	</div>
 
 
-	<div class="row mt-4 mb-2 ms-5">
+	<div class="row mt-4 mb-2 ms-5 container-fluid py-5">
 		<div class="col-2 ms-5">
 			<!--Carta-->
 			<div class="card" style="width: 18rem;">
-				<img src="../static/img/Clinica Santa Victoria Logo.png" class="card-img-top">
+				<img th:src="@{/img/edificioClinica.jpg}" class="card-img-top">
 				<div class="card-body">
 					<h5 class="card-title">Clinica Santa Victoria</h5>
 				</div>
 			</div>
 		</div>
 		<div class="col-7 ms-5">
-			<!-- Novedades -->
-			<section class="container">
-				<h1>Novedades</h1>
-				<p>En la Clínica Santa Victoria, nos preocupamos por ofrecer opciones de atención médica accesibles
-					y completas para todos nuestros pacientes. Es por eso que hemos diseñado dos tipos de seguros
-					médicos que se adaptan a diversas necesidades y presupuestos.
-				</p>
-				<p>El primer tipo de seguro, llamémoslo <strong>"Plata"</strong>, ofrece a nuestros pacientes la
-					posibilidad de
-					acceder a citas médicas normales de forma gratuita. Además, para aquellas citas especiales que
-					requieran tratamientos más específicos o procedimientos especializados, los titulares de este
-					seguro disfrutarán de un generoso descuento. Este plan está diseñado para brindar tranquilidad y
-					comodidad a aquellos que desean acceder a la atención médica sin preocuparse por los costos
-					adicionales.</p>
-				<p>Por otro lado, ofrecemos el segundo tipo de seguro, conocido como <strong>"Oro",</strong> que va
-					un paso más
-					allá al ofrecer acceso gratuito a todo tipo de citas médicas. Desde consultas de rutina hasta
-					procedimientos especializados, los titulares de este seguro no tendrán que preocuparse por los
-					costos asociados a la atención médica. Este plan está diseñado para brindar una tranquilidad
-					total y una atención médica integral sin barreras financieras.</p>
-			</section>
-
-			<!-- Quienes somos -->
 			<section class="container">
 				<h1>Quienes somos</h1>
 
@@ -99,19 +75,11 @@
 					los pacientes pueden solicitar citas con facilidad, permitiendo una gestión conveniente de su
 					atención médica.</p>
 			</section>
-
-			<!-- Logros -->
-			<section class="container">
-				<h1>Nuestro logros</h1>
-				<p>Premios de nuestra clinica y nuestro equipo Lorem ipsum dolor sit amet consectetur adipisicing
-					elit. Expedita hic at,possimus quo dicta corrupti consectetur dignissimos nisi libero magni odit
-					eveniet doloribus recusandae minus consequuntur qui accusamus deleniti veritatis!</p>
-			</section>
 		</div>
 	</div>
 
 	<!-- Footer -->
-	<footer th:replace="~{fragmentos/pie::pie}"></footer>
+	<footer class="container-fluid" th:replace="~{fragmentos/pie::pie}"></footer>
 
 
 </body>

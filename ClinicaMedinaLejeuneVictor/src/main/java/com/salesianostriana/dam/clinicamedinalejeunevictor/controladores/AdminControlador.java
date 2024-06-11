@@ -85,7 +85,7 @@ public class AdminControlador {
 		return "redirect:/admin/mostrarDoctores";
 	}
 
-	// formulario para editar doctor
+	/// formulario para editar doctor
 	@GetMapping("/editarDoctor/{id}")
 	public String mostrarFormularioEdicion(@PathVariable("id") Long id, Model model) {
 
@@ -96,11 +96,15 @@ public class AdminControlador {
 		model.addAttribute("doctor", editarDoctor.get());
 
 		return "admin/formularioDoctor";
+
 	}
 
 	// confirmar edicion doctor
 	@PostMapping("/editarDoctor/submit")
-	public String procesarFormularioEdicion(@ModelAttribute("doctor") Doctor doctor) {
+	public String procesarFormularioEdicion(@ModelAttribute("doctor") Doctor doctor,
+			@RequestParam(value = "esAdmin", required = false) boolean esAdmin) {
+
+		doctor.setEsAdmin(esAdmin);
 		doctorServicio.edit(doctor);
 		return "redirect:/admin/mostrarDoctores";
 	}

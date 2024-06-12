@@ -4,118 +4,131 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Registro doctor</title>
-	<!-- Bootstrap CSS -->
+	<title>Registro Clientes</title>
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
 		integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
 		crossorigin="anonymous"></script>
-	<link rel="stylesheet" href="../static/css/formularioCliente.css" th:href="@{/css/formularioCliente.css}" />
+	<script src="../static/js/formularioCliente.js" th:src="@{/js/formularioCliente.js}" defer></script>
 </head>
 
-<body>
+<body class="d-flex flex-column justify-content-between min-vh-100">
 
-	<div class="container mt-5">
+	<div sec:authorize="hasRole('ROLE_ADMIN')">
+		<nav th:replace="~{fragmentos/menu::menu}"></nav>
+	</div>
+
+	<div class="container mt-5 mb-5">
 		<div class="row justify-content-center">
 			<div class="col-md-8">
-
 				<form method="post"
-				th:action="${cliente.id != 0} ? @{/admin/editarCliente/submit} : @{/admin/nuevoCliente/submit}"
+					th:action="${cliente.id != 0 ? '/admin/editarCliente/submit' : '/admin/nuevoCliente/submit'}"
 					th:object="${cliente}" class="needs-validation" novalidate>
-
-
-					<input th:if="${cliente.id != 0}" type="hidden" name="id" th:field="*{id}" />
 
 					<div class="row mb-3">
 						<div class="col-md-6">
 							<label for="nombre" class="form-label">Nombre</label>
-							<input type="text" class="form-control" th:field="*{nombre}" id="nombre"
-								placeholder="Nombre" required>
-							<div class="valid-feedback">Valido.</div>
-							<div class="invalid-feedback">Por favor rellena este campo</div>
+							<input type="text" class="form-control" name="nombre" id="nombre" placeholder="Nombre"
+								th:field="*{nombre}" required>
+							<div class="valid-feedback">Nombre insertado</div>
+							<div class="invalid-feedback">Por favor rellena este campo.</div>
 						</div>
 						<div class="col-md-6">
 							<label for="apellidos" class="form-label">Apellido/s</label>
-							<input type="text" class="form-control" th:field="*{apellidos}" id="apellidos"
-								placeholder="Apellido/s">
-							<div class="valid-feedback">Valido.</div>
-							<div class="invalid-feedback">Por favor rellena este campo</div>
+							<input type="text" class="form-control" name="apellidos" id="apellidos"
+								th:field="*{apellidos}" placeholder="Apellido/s" required>
+							<div class="valid-feedback">Apellido insertado</div>
+							<div class="invalid-feedback">Por favor rellena este campo.</div>
 						</div>
 					</div>
-
-					<div class="mb-3">
-						<label for="username" class="form-label">Username</label>
-						<input type="text" class="form-control" th:field="*{username}" id="username"
-							placeholder="Username" required>
-						<div class="valid-feedback">Valido.</div>
-						<div class="invalid-feedback">Por favor rellena este campo</div>
-					</div>
-
 					<div class="row mb-3">
 						<div class="col-md-6">
 							<label for="dni" class="form-label">DNI</label>
-							<input type="text" class="form-control" th:field="*{dni}" id="dni" placeholder="12345678A"
-								pattern="[0-9]{8}[A-Za-z]{1}" required>
-							<div class="valid-feedback">Valido.</div>
+							<input type="text" class="form-control" name="dni" id="dni" th:field="*{dni}"
+								placeholder="12345678A" pattern="[0-9]{8}[A-Za-z]{1}" required>
+							<div class="valid-feedback">DNI válido</div>
 							<div class="invalid-feedback">Por favor rellena este campo con 8 números seguidos de una
 								letra.</div>
 						</div>
 						<div class="col-md-6">
-							<label for="email" class="form-label">Gmail</label>
-							<input type="email" class="form-control" th:field="*{gmail}" id="email"
-								placeholder="nombre@ejemplo.com"
-								pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}" required>
-							<div class="valid-feedback">Valido.</div>
-							<div class="invalid-feedback">Por favor introduce una dirección de correo electrónico
-								válida.
-							</div>
+							<label for="usuario" class="form-label">Nombre de Usuario</label>
+							<input type="text" class="form-control" name="usuario" th:field="*{username}" id="usuario"
+								placeholder="Usuario" required>
+							<div class="valid-feedback">Nombre de usuario insertado</div>
+							<div class="invalid-feedback">Por favor rellena este campo.</div>
 						</div>
 					</div>
-
 					<div class="row mb-3">
 						<div class="col-md-6">
-
+							<label for="email" class="form-label">Correo electrónico</label>
+							<input type="email" class="form-control" name="email" id="email" th:field="*{gmail}"
+								placeholder="nombre@ejemplo.com"
+								pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}" required>
+							<div class="valid-feedback">Correo válido</div>
+							<div class="invalid-feedback">Por favor introduce una dirección de correo electrónico
+								válida.</div>
+						</div>
+						<div class="col-md-6">
 							<label for="seguro" class="form-label">Seguro</label>
-
-							<select class="form-select" id="seguro" th:field="${cliente.seguro}">
-
-								<option value="">Seleccione un seguro</option>
-
-								<option th:each="seguro : ${seguros}" th:value="${seguro.idSeguro}"
-									th:text="${seguro.nombre}">
-								</option>
+							<select class="form-control" required th:field="${cliente.seguro}">
+								<th:block th:each="seguro : ${seguros}" th:value="${seguro.idSeguro}">
+									<option th:value="${seguro.idSeguro}"
+										th:text="${seguro.nombre} + ' - ' + ${seguro.precio} + '€'"></option>
+								</th:block>
 							</select>
-
 							<div class="valid-feedback">Válido.</div>
 							<div class="invalid-feedback">Por favor seleccione un seguro.</div>
 						</div>
-
 					</div>
-
-					<div class="mb-3">
-						<label for="contrasenya" class="form-label">Contraseña</label>
-						<input type="password" class="form-control" th:field="*{password}" id="contrasenya"
-							placeholder="Contraseña" required>
-						<div class="valid-feedback">Valido.</div>
-						<div class="invalid-feedback">Por favor rellena este campo</div>
+					<div class="row mb-3" th:if="${cliente.id == 0}">
+						<div class="col-md-6">
+							<label for="contrasenya" class="form-label">Contraseña</label>
+							<div class="input-group">
+								<input type="password" class="form-control" name="contrasenya" id="pwd"
+									th:field="*{password}" placeholder="Contraseña" required>
+								<button type="button" onclick="togglePasswordVisibility('pwd', 'verPwd')">
+									<svg xmlns="http://www.w3.org/2000/svg" id="verPwd" width="20" height="20"
+										fill="currentColor" class="bi bi-eye-fill mx-2" viewBox="0 0 16 16">
+										<path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0" />
+										<path
+											d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8m8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7" />
+									</svg>
+								</button>
+							</div>
+							<div class="valid-feedback">Contraseña válida</div>
+							<div class="invalid-feedback">Por favor rellena este campo.</div>
+						</div>
+						<div class="col-md-6">
+							<label for="confirmar_contrasenya" class="form-label">Repetir Contraseña</label>
+							<div class="input-group">
+								<input type="password" class="form-control" name="confirmar_contrasenya" id="pwd2"
+									placeholder="Repetir Contraseña" required>
+								<button type="button" onclick="togglePasswordVisibility('pwd2', 'verPwd2')">
+									<svg xmlns="http://www.w3.org/2000/svg" id="verPwd2" width="20" height="20"
+										fill="currentColor" class="bi bi-eye-fill mx-2" viewBox="0 0 16 16">
+										<path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0" />
+										<path
+											d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8m8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7" />
+									</svg>
+								</button>
+							</div>
+							<div class="valid-feedback">Contraseña confirmada</div>
+							<div class="invalid-feedback">Las contraseñas no coinciden.</div>
+						</div>
 					</div>
-
-					<div class="mb-3">
-						<label for="confirmar_contrasenya" class="form-label">Repetir Contraseña</label>
-						<input type="password" class="form-control" th:field="*{password}" id="confirmar_contrasenya"
-							placeholder="Repetir Contraseña" required>
-						<div class="valid-feedback">Valido.</div>
-						<div class="invalid-feedback">Por favor rellena este campo</div>
+					<div class="text-center">
+						<button type="submit" class="btn btn-success"
+							th:text="${cliente.id != 0 ? 'Editar Cliente' : 'Añadir Cliente'}">Registrarse</button>
 					</div>
-
-					<button type="submit" class="btn btn-success">Registrarse</button>
-
 				</form>
 			</div>
 		</div>
 	</div>
-
+	<div class="alert alert-success" id="success-message" style="display: none;">
+		¡Registro exitoso!
+	</div>
+	<footer class="container-fluid" th:replace="~{fragmentos/pie::pie}"></footer>
 </body>
 
 </html>

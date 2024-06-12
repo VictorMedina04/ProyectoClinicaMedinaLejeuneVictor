@@ -105,10 +105,7 @@ public class AdminControlador {
 			@RequestParam(value = "esAdmin", required = false) boolean esAdmin) {
 
 		doctor.setEsAdmin(esAdmin);
-		if (usuarioServicio.encontrarPorUsername(doctor.getUsername())) {
 
-			return "errorUsernameEdit";
-		}
 		doctorServicio.edit(doctor);
 		return "redirect:/admin/mostrarDoctores";
 	}

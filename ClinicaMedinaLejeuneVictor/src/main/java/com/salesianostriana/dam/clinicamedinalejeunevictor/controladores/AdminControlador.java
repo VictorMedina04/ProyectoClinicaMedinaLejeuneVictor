@@ -1,5 +1,6 @@
 package com.salesianostriana.dam.clinicamedinalejeunevictor.controladores;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.salesianostriana.dam.clinicamedinalejeunevictor.modelos.Cita;
+import com.salesianostriana.dam.clinicamedinalejeunevictor.modelos.CitasPk;
 import com.salesianostriana.dam.clinicamedinalejeunevictor.modelos.Cliente;
 import com.salesianostriana.dam.clinicamedinalejeunevictor.modelos.Departamento;
 import com.salesianostriana.dam.clinicamedinalejeunevictor.modelos.Doctor;
@@ -325,6 +327,31 @@ public class AdminControlador {
 	public String nuevaCita(@ModelAttribute("cita") Cita cita) {
 
 		citaServicio.save(cita);
+
+		return "redirect:/admin/mostrarCitas";
+	}
+
+	// formulario para editar Cita
+	@GetMapping("/editarCita/{id_doctor}/{id_cliente}/{fecha_inicio}")
+	public String mostrarFormularioEdicionCita(@PathVariable("id_doctor") long id_doctor,
+			@PathVariable("id_cliente") long id_cliente, @PathVariable("fecha_inicio") LocalDateTime fecha_inicio,
+			Model model) {
+
+		CitasPk citaId = new CitasPk(id_doctor, id_cliente, fecha_inicio);
+
+		Optional<Cita> editarCita = citaServicio.findById(citaId);
+
+		model.addAttribute("cita", editarCita.get());
+
+		return "admin/formularioCitas";
+
+	}
+
+	// confirmar edicion cita
+	@PostMapping("/editarCita/submit")
+	public String procesarFormularioEdicionCita(@ModelAttribute("cita") Cita cita) {
+
+		citaServicio.edit(cita);
 
 		return "redirect:/admin/mostrarCitas";
 	}

@@ -142,7 +142,14 @@ public class AdminControlador {
 	@PostMapping("/nuevoCliente/submit")
 	public String nuevoCliente(@ModelAttribute("cliente") Cliente cliente) {
 
-		clienteServicio.save(cliente);
+		if (usuarioServicio.encontrarPorUsername(cliente.getUsername())) {
+
+			return "errorUsername";
+		}
+
+		usuarioServicio.codificarContrasenya(cliente.getPassword(), cliente);
+
+		usuarioServicio.save(cliente);
 
 		return "redirect:/admin/mostrarClientes";
 	}

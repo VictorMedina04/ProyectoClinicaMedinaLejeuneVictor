@@ -14,10 +14,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.salesianostriana.dam.clinicamedinalejeunevictor.modelos.Cita;
 import com.salesianostriana.dam.clinicamedinalejeunevictor.modelos.Cliente;
 import com.salesianostriana.dam.clinicamedinalejeunevictor.modelos.Departamento;
 import com.salesianostriana.dam.clinicamedinalejeunevictor.modelos.Doctor;
 import com.salesianostriana.dam.clinicamedinalejeunevictor.modelos.Seguro;
+import com.salesianostriana.dam.clinicamedinalejeunevictor.servicios.CitaServicio;
 import com.salesianostriana.dam.clinicamedinalejeunevictor.servicios.ClienteServicio;
 import com.salesianostriana.dam.clinicamedinalejeunevictor.servicios.DepartamentoServicio;
 import com.salesianostriana.dam.clinicamedinalejeunevictor.servicios.DoctorServicio;
@@ -42,6 +44,9 @@ public class AdminControlador {
 
 	@Autowired
 	private SeguroServicio seguroServicio;
+
+	@Autowired
+	private CitaServicio citaServicio;
 
 	@Autowired
 	private PasswordEncoder encoder;
@@ -293,4 +298,34 @@ public class AdminControlador {
 		return "redirect:/admin/mostrarDepartamentos";
 	}
 
+	// mostrar tabla citas
+	@GetMapping("/mostrarCitas")
+	public String citas(Model model) {
+		model.addAttribute("citas", citaServicio.findAll());
+		return "admin/tablaCitas";
+	}
+
+	// formulario cita
+	@GetMapping("/nuevaCita")
+	public String mostrarFormularioCitas(Model model) {
+
+		List<Doctor> doctores = doctorServicio.findAll();
+		model.addAttribute("doctores", doctores);
+
+		List<Cliente> clientes = clienteServicio.findAll();
+		model.addAttribute("clientes", clientes);
+
+		model.addAttribute("cita", new Cita());
+
+		return "admin/formularioCitas";
+	}
+
+	// insertar cita
+	@PostMapping("/nuevaCita/submit")
+	public String nuevaCita(@ModelAttribute("cita") Cita cita) {
+
+		citaServicio.save(cita);
+
+		return "redirect:/admin/mostrarCitas";
+	}
 }

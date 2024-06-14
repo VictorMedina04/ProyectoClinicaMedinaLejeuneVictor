@@ -25,7 +25,7 @@
 }
 
 .button:hover {
-	width: 100px;
+	width: 30px;
 	border-radius: 50px;
 	transition-duration: .3s;
 	background-color: rgb(255, 69, 69);
@@ -41,7 +41,7 @@
 .button::before {
 	position: absolute;
 	top: -20px;
-	content: "Delete";
+	content: "";
 	color: white;
 	transition-duration: .3s;
 	font-size: 2px;

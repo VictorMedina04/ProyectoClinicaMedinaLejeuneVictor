@@ -355,4 +355,18 @@ public class AdminControlador {
 
 		return "redirect:/admin/mostrarCitas";
 	}
+
+	// borrar cita
+	@GetMapping("/borrarCita/{id_doctor}/{id_cliente}/{fecha_inicio}")
+	public String borrarCita(@PathVariable("id_doctor") long id_doctor, @PathVariable("id_cliente") long id_cliente,
+			@PathVariable("fecha_inicio") LocalDateTime fecha_inicio) {
+
+		CitasPk citaId = new CitasPk(id_doctor, id_cliente, fecha_inicio);
+
+		Optional<Cita> borrarCita = citaServicio.findById(citaId);
+
+		citaServicio.delete(borrarCita.get());
+
+		return "redirect:/admin/mostrarCitas";
+	}
 }

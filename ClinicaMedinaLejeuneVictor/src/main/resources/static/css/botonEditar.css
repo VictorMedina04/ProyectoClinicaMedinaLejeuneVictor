@@ -26,7 +26,7 @@
 }
 
 .edit-button:hover {
-	width: 120px;
+	width: 30px;
 	border-radius: 50px;
 	transition-duration: 0.3s;
 	background-color: rgb(255, 69, 69);
@@ -46,7 +46,7 @@
 
 .edit-button::before {
 	display: none;
-	content: "Edit";
+	content: "";
 	color: white;
 	transition-duration: 0.3s;
 	font-size: 2px;

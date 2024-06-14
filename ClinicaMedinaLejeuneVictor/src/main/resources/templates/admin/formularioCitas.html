@@ -29,48 +29,63 @@
 					th:object="${cita}" class="needs-validation" novalidate>
 
 
+					<div class="mb-3" th:switch="${cita.citasPk.id_doctor == 0}">
+						<div th:case="true">
+							<label for="doctor" class="form-label">Doctor</label>
+							<select class="form-control" required th:field="*{doctor}">
 
-					<div class="mb-3" th:if="${cita.citasPk.id_doctor == 0}">
-						<label for="doctor" class="form-label">Doctor</label>
-						<select class="form-control" required th:field="*{doctor}">
+								<th:block th:each="doctor : ${doctores}">
+									<option th:value="${doctor.id}"
+										th:text="${doctor.nombre} + ' ' + ${doctor.apellidos}">
+									</option>
+								</th:block>
 
-							<th:block th:each="doctor : ${doctores}">
-								<option th:value="${doctor.id}" th:text="${doctor.nombre} + ' ' + ${doctor.apellidos}">
-								</option>
-							</th:block>
+							</select>
+						</div>
+						<div th:case="false">
+							<input type="hidden" th:field="*{citasPk.id_doctor}">
+						</div>
 
-						</select>
 					</div>
 
-					<div class="mb-3" th:if="${cita.citasPk.id_cliente == 0}">
-						<label for="cliente" class="form-label">Cliente</label>
-						<select class="form-control" required th:field="*{cliente}">
+					<div class="mb-3" th:switch="${cita.citasPk.id_cliente == 0}">
+						<div th:case="true">
+							<label for="cliente" class="form-label">Cliente</label>
+							<select class="form-control" required th:field="*{cliente}">
 
-							<th:block th:each="cliente : ${clientes}">
-								<option th:value="${cliente.id}"
-									th:text="${cliente.nombre} + ' ' + ${cliente.apellidos}"></option>
-							</th:block>
+								<th:block th:each="cliente : ${clientes}">
+									<option th:value="${cliente.id}"
+										th:text="${cliente.nombre} + ' ' + ${cliente.apellidos}"></option>
+								</th:block>
 
-						</select>
+							</select>
+						</div>
+						<div th:case="false">
+							<input type="hidden" th:field="*{citasPk.id_cliente}">
+						</div>
+
 					</div>
 
-					<div class="mb-3" th:if="${cita.citasPk.fecha_inicio == null}">
-						<label for="fechaInicio" class="form-label">Fecha Inicio</label>
-						<input type="datetime-local" class="form-control" id="fechaInicio"
-							th:field="*{citasPk.fecha_inicio}" placeholder="Hora de inicio" required>
+					<div class="mb-3" th:switch="${cita.citasPk.fecha_inicio == null}">
+
+						<div th:case="true">
+							<label for="fechaInicio" class="form-label">Fecha Inicio</label>
+							<input type="datetime-local" class="form-control" id="fechaInicio"
+								th:field="*{citasPk.fecha_inicio}" placeholder="Hora de inicio" required>
+						</div>
+
+						<div tht:case="false">
+							<input type="hidden" th:field="*{citasPk.fecha_inicio}">
+						</div>
+
 					</div>
+
 
 
 					<div class="mb-3">
 						<label for="precio" class="form-label">Precio</label>
 						<input type="number" class="form-control" th:field="*{precioCita}" id="precio" min="40"
 							step="0.10" placeholder="40.00 €">
-					</div>
-
-					<div class="mb-3 form-check">
-						<input class="form-check-input" type="checkbox" th:field="*{especial}" id="especial"
-							name="especial">
-						<label class="form-check-label" for="especial">Especial</label>
 					</div>
 
 					<div class="mb-3">
@@ -83,8 +98,12 @@
 							<option th:value="60">60 min.</option>
 						</select>
 					</div>
-
-
+					
+					<div class="mb-3 form-check">
+						<input class="form-check-input" type="checkbox" th:field="*{especial}" id="especial"
+							name="especial">
+						<label class="form-check-label" for="especial">Especial</label>
+					</div>
 
 					<div class="text-center">
 						<button type="submit" class="btn btn-success"

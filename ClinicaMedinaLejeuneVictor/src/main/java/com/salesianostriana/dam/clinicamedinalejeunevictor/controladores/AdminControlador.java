@@ -188,11 +188,19 @@ public class AdminControlador {
 
 		Optional<Cliente> borrarCliente = clienteServicio.findById(id);
 
-		clienteServicio.delete(borrarCliente.get());
+		if (borrarCliente.isPresent()) {
+
+			if (borrarCliente.get().getCitas().isEmpty()) {
+				clienteServicio.delete(borrarCliente.get());
+			} else {
+
+				return "redirect:/admin/mostrarClientes?error=true";
+			}
+
+		}
 
 		return "redirect:/admin/mostrarClientes";
 	}
-
 	// mostrar tabla seguros
 	@GetMapping("/mostrarSeguros")
 	public String seguros(Model model) {

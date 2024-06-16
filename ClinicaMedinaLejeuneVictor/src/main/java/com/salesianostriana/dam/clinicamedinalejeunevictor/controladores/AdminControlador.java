@@ -321,7 +321,16 @@ public class AdminControlador {
 
 		Optional<Departamento> borrarDepartamento = departamentoServicio.findById(id);
 
-		departamentoServicio.delete(borrarDepartamento.get());
+		if (borrarDepartamento.isPresent()) {
+
+			if (borrarDepartamento.get().getDoctores().isEmpty()) {
+				departamentoServicio.delete(borrarDepartamento.get());
+			} else {
+
+				return "redirect:/admin/mostrarDepartamentos?error=true";
+			}
+
+		}
 
 		return "redirect:/admin/mostrarDepartamentos";
 	}

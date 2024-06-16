@@ -121,13 +121,22 @@ public class AdminControlador {
 	@GetMapping("/borrarDoctor/{id}")
 	public String borrarDoctor(@PathVariable("id") Long id) {
 
-		Optional<Doctor> borrarDoctor = doctorServicio.findById(id);
+		Optional<Doctor> optionalDoctor = doctorServicio.findById(id);
 
-		doctorServicio.delete(borrarDoctor.get());
+		if (optionalDoctor.isPresent()) {
+
+			if (optionalDoctor.get().getCitas().isEmpty()) {
+				doctorServicio.delete(optionalDoctor.get());
+			} else {
+
+				return "redirect:/admin/mostrarDoctores?error=true";
+			}
+
+		}
 
 		return "redirect:/admin/mostrarDoctores";
-	}
 
+	}
 	// mostrar tabla clientes
 	@GetMapping("/mostrarClientes")
 	public String clientes(Model model) {

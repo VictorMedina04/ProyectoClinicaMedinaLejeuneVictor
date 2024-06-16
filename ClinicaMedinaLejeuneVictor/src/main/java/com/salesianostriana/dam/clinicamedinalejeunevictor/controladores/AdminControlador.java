@@ -259,7 +259,16 @@ public class AdminControlador {
 
 		Optional<Seguro> borrarSeguro = seguroServicio.findById(id);
 
-		seguroServicio.delete(borrarSeguro.get());
+		if (borrarSeguro.isPresent()) {
+
+			if (borrarSeguro.get().getClientes().isEmpty()) {
+				seguroServicio.delete(borrarSeguro.get());
+			} else {
+
+				return "redirect:/admin/mostrarSeguros?error=true";
+			}
+
+		}
 
 		return "redirect:/admin/mostrarSeguros";
 	}

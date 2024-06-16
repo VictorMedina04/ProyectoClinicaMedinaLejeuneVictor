@@ -26,6 +26,11 @@
 
 	<div class="container mt-3 mb-4">
 
+		<div class="alert alert-danger alert-dismissible fade show text-center" style="margin: 0 auto; width: 50%; margin-top: 50px;" role="alert" th:if="${param.error}">
+						        <strong>¡ERROR!</strong> No puedes eliminar el doctor porque tiene una cita, primero borra todas las citas del doctor
+						        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+						    </div>
+
 
 		<h4 class="d-inline-block">Doctores</h4>
 

@@ -37,24 +37,7 @@ public class ClienteControlador {
 	@Autowired
 	private CitaServicio citaServicio;
 
-
-
-	@GetMapping("/seguros")
-	public String mostrarSeguros(Model model, @AuthenticationPrincipal Cliente cliente) {
-
-		model.addAttribute("cliente", cliente);
-
-		model.addAttribute("seguros", seguroServicio.findAll());
-
-		return "/cliente/seguros";
-	}
-
-	// confirmar edicion cliente
-	@PostMapping("/seguros/submit")
-	public String procesarFormularioEdicionCliente(@ModelAttribute("cliente") Cliente cliente) {
-		clienteServicio.edit(cliente);
-		return "inicioSinLog";
-	}
+	
 
 
 	@GetMapping("/citas")
@@ -102,6 +85,23 @@ public class ClienteControlador {
 		clienteServicio.borrarCitaCliente(cliente, borrarCita.get());
 
 		return "redirect:/cliente/historialCitas";
+	}
+	
+	@GetMapping("/seguros")
+	public String mostrarSeguros(Model model, @AuthenticationPrincipal Cliente cliente) {
+
+		model.addAttribute("cliente", cliente);
+
+		model.addAttribute("seguros", seguroServicio.findAll());
+
+		return "/cliente/seguros";
+	}
+
+	// confirmar edicion cliente
+	@PostMapping("/seguros/submit")
+	public String procesarFormularioEdicionCliente(@ModelAttribute("cliente") Cliente cliente) {
+		clienteServicio.edit(cliente);
+		return "inicioSinLog";
 	}
 
 }

@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', function() {
 			const idDoctor = button.getAttribute('data-id-doctor');
 			const idCliente = button.getAttribute('data-id-cliente');
 			const fechaInicio = button.getAttribute('data-fecha-inicio');
-			fechaInicio1 = fechaInicio.replace(' ', 'T');
+			const fechaInicio1 = fechaInicio.replace(' ', 'T');
 			deleteUrl = `/admin/borrarCita/${idDoctor}/${idCliente}/${fechaInicio1}`;
 			confirmDeleteBtn.setAttribute('href', deleteUrl);
 			deleteModal.show();

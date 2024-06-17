@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.salesianostriana.dam.clinicamedinalejeunevictor.exceptions.DoctorNotFoundException;
+import com.salesianostriana.dam.clinicamedinalejeunevictor.modelos.Cita;
 import com.salesianostriana.dam.clinicamedinalejeunevictor.modelos.Doctor;
 import com.salesianostriana.dam.clinicamedinalejeunevictor.repositorios.DoctorRepositorio;
 import com.salesianostriana.dam.clinicamedinalejeunevictor.servicios.serviciosbase.BaseServiceImpl;
@@ -19,5 +20,11 @@ public class DoctorServicio extends BaseServiceImpl<Doctor, Long, DoctorReposito
 			throw new DoctorNotFoundException("No hay doctores con ese criterio");
 		}
 		return result;
+	}
+
+	public void borrarCitaDoctor(Doctor doctor, Cita cita) {
+
+		doctor.getCitas().remove(cita);
+
 	}
 }

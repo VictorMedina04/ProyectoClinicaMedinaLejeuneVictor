@@ -26,10 +26,12 @@
 
 	<div class="container mt-3 mb-4">
 
-		<div class="alert alert-danger alert-dismissible fade show text-center" style="margin: 0 auto; width: 50%; margin-top: 50px;" role="alert" th:if="${param.error}">
-						        <strong>¡ERROR!</strong> No puedes eliminar el doctor porque tiene una cita, primero borra todas las citas del doctor
-						        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-						    </div>
+		<div class="alert alert-danger alert-dismissible fade show text-center"
+			style="margin: 0 auto; width: 50%; margin-top: 50px;" role="alert" th:if="${param.error}">
+			<strong>¡ERROR!</strong> No puedes eliminar el doctor porque tiene una cita, primero borra todas las citas
+			del doctor
+			<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+		</div>
 
 
 		<h4 class="d-inline-block">Doctores</h4>
@@ -72,13 +74,16 @@
 										</path>
 									</svg>
 								</button></a></td>
-								<td>
-																							<button class="button delete-button" th:attr="data-doctor-id=${doctor.id}" data-bs-toggle="modal" data-bs-target="#delete-modal">
-																								<svg viewBox="0 0 448 512" class="svgIcon">
-																									<path d="M135.2 17.7L128 32H32C14.3 32 0 46.3 0 64S14.3 96 32 96H416c17.7 0 32-14.3 32-32s-14.3-32-32-32H320l-7.2-14.3C307.4 6.8 296.3 0 284.2 0H163.8c-12.1 0-23.2 6.8-28.6 17.7zM416 128H32L53.2 467c1.6 25.3 22.6 45 47.9 45H346.9c25.3 0 46.3-19.7 47.9-45L416 128z"></path>
-																								</svg>
-																							</button>
-																						</td>
+						<td>
+							<button class="button delete-button" th:attr="data-doctor-id=${doctor.id}"
+								data-bs-toggle="modal" data-bs-target="#delete-modal">
+								<svg viewBox="0 0 448 512" class="svgIcon">
+									<path
+										d="M135.2 17.7L128 32H32C14.3 32 0 46.3 0 64S14.3 96 32 96H416c17.7 0 32-14.3 32-32s-14.3-32-32-32H320l-7.2-14.3C307.4 6.8 296.3 0 284.2 0H163.8c-12.1 0-23.2 6.8-28.6 17.7zM416 128H32L53.2 467c1.6 25.3 22.6 45 47.9 45H346.9c25.3 0 46.3-19.7 47.9-45L416 128z">
+									</path>
+								</svg>
+							</button>
+						</td>
 					</tr>
 				</tbody>
 			</table>
@@ -91,24 +96,24 @@
 	</div>
 
 	<footer th:replace="~{fragmentos/pie::pie}"></footer>
-	
+
 	<div class="modal fade" id="delete-modal" tabindex="-1" aria-labelledby="delete-modal-label" aria-hidden="true">
-				<div class="modal-dialog">
-					<div class="modal-content">
-						<div class="modal-header">
-							<h5 class="modal-title" id="delete-modal-label">Borrar doctor</h5>
-							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-						</div>
-						<div class="modal-body">
-							<p>¿Está usted seguro de borrar este doctor?</p>
-						</div>
-						<div class="modal-footer">
-							<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
-							<a href="#" class="btn btn-danger confirm-delete">Sí</a>
-						</div>
-					</div>
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="delete-modal-label">Borrar doctor</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<p>¿Está usted seguro de borrar este doctor?</p>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+					<a href="#" class="btn btn-danger confirm-delete">Sí</a>
 				</div>
 			</div>
+		</div>
+	</div>
 
 </body>
 

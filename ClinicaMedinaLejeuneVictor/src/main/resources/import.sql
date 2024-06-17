@@ -4,10 +4,13 @@ INSERT INTO departamento(ID_DEPARTAMENTO,ESPECIALIDAD) VALUES(3, 'Neumología');
 ALTER SEQUENCE departamento_seq RESTART WITH (53);
 
 
-INSERT INTO seguro(ID_SEGURO, NOMBRE, PRECIO, DESCRIPCION) VALUES(1,'Sin seguro', 0, 'No tiene seguro'); 	  	  
-INSERT INTO seguro(ID_SEGURO, NOMBRE, PRECIO, DESCRIPCION) VALUES(2,'Seguro plata', 25.99, 'Seguro que cubre las citas que no son especiales y hace descuento a las especiales');
-INSERT INTO seguro(ID_SEGURO, NOMBRE, PRECIO, DESCRIPCION) VALUES(3, 'Seguro oro', 145.99, 'Seguro que cubre todos los servicios');
-ALTER SEQUENCE seguro_seq RESTART WITH (53);
+INSERT INTO seguro(ID_SEGURO, NOMBRE, PRECIO, DESCRIPCION) VALUES(1,'Sin seguro', 0, 'Usted no tiene un seguro con nuestra clínica, para tener una mayor experiencia puede contratar nuestros servicios de la mejor calidad'); 	  	  
+INSERT INTO seguro(ID_SEGURO, NOMBRE, PRECIO, DESCRIPCION) VALUES(2, 'Seguro Bronce', 25.00, 'Este es el seguro para personas que no tienen frecuentemente problemas muy graves.Nos ofrece un descuento del 10% en citas de carácter normal');
+INSERT INTO seguro(ID_SEGURO, NOMBRE, PRECIO, DESCRIPCION) VALUES(3,'Seguro Plata', 75.00, 'Este seguro cubrirá todas las citas que no sean de carácter especial y también tendrá un descuento del 15% de TODAS las citas de carácter especial');
+INSERT INTO seguro(ID_SEGURO, NOMBRE, PRECIO, DESCRIPCION) VALUES(4, 'Seguro Oro', 200.00, 'Con nuestro seguro estrella cada vez que tenga una cita da igual cual sea será absolutamente GRATIS.Este seguro es el más contratado por los grandes servicios que ofrece a nuestros clientes');
+INSERT INTO seguro(ID_SEGURO, NOMBRE, PRECIO, DESCRIPCION) VALUES(5, 'Seguro Platino', 150.00, 'El seguro platino nos ofrece un descuento del 45% en todas las citas que no tengan un carácter especial de un solo departamento.Este mes el departamento con el que tendrá descuentos será el departamento de Alergología.');
+INSERT INTO seguro(ID_SEGURO, NOMBRE, PRECIO, DESCRIPCION) VALUES(6, 'Seguro Paladio', 145.99, 'Con nuestro seguro Paladio obtendrá un descuento en cualquier cita del 50%.Uno de los mejores seguros que tenemos para poder darte la mejor calidad');
+ALTER SEQUENCE seguro_seq RESTART WITH (56);
 
 
 INSERT INTO usuario(ID, username, NOMBRE, APELLIDOS, GMAIL, password, DNI, ES_ADMIN, ES_DOCTOR) VALUES(1,'admin','Paco','Gomez','pacogomez@gmail.com','{bcrypt}$2y$10$HDQFRiVddHHu1SMEjIR9LuQigT/2lnz/3LKwCn1LmeElF/JN/SDMW','12345678A',true,false);

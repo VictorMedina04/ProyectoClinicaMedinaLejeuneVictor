@@ -37,6 +37,8 @@ public class ClienteControlador {
 	@Autowired
 	private CitaServicio citaServicio;
 
+
+
 	@GetMapping("/seguros")
 	public String mostrarSeguros(Model model, @AuthenticationPrincipal Cliente cliente) {
 
@@ -53,6 +55,7 @@ public class ClienteControlador {
 		clienteServicio.edit(cliente);
 		return "inicioSinLog";
 	}
+
 
 	@GetMapping("/citas")
 	public String mostrarFormularioCita(Model model) {

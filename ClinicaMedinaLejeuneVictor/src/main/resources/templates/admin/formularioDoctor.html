@@ -107,42 +107,42 @@
 					</div>
 
 					<div class="row mb-3" th:if="${doctor.id == 0}">
-						<div class="col-md-6">
-							<label for="contrasenya" class="form-label">Contraseña</label>
-							<div class="input-group">
-
-								<input type="password" class="form-control" name="contrasenya" id="pwd"
-									th:field="*{password}" placeholder="Contraseña" required>
-								<button>
-									<svg xmlns="http://www.w3.org/2000/svg" id="verPwd" width="20" height="20"
-										fill="currentColor" class="bi bi-eye-fill mx-2" viewBox="0 0 16 16">
-										<path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0" />
-										<path
-											d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8m8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7" />
-									</svg>
-								</button>
-							</div>
-							<div class="valid-feedback">Contraseña válida</div>
-							<div class="invalid-feedback">Por favor rellena este campo.</div>
-						</div>
-						<div class="col-md-6">
-							<label for="confirmar_contrasenya" class="form-label">Repetir Contraseña</label>
-							<div class="input-group">
-								<input type="password" class="form-control" name="confirmar_contrasenya" id="pwd2"
-									placeholder="Repetir Contraseña" required>
-								<button>
-									<svg xmlns="http://www.w3.org/2000/svg" id="verPwd2" width="20" height="20"
-										fill="currentColor" class="bi bi-eye-fill mx-2" viewBox="0 0 16 16">
-										<path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0" />
-										<path
-											d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8m8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7" />
-									</svg>
-								</button>
-							</div>
-							<div class="valid-feedback">Contraseña confirmada</div>
-							<div class="invalid-feedback">Las contraseñas no coinciden.</div>
-						</div>
-					</div>
+						
+												<div class="col-md-6">
+													<label for="contrasenya" class="form-label">Contraseña</label>
+													<div class="input-group">
+														<input type="password" class="form-control" name="contrasenya" id="pwd"
+															th:field="*{password}" placeholder="Contraseña" required>
+														<button type="button" onclick="togglePasswordVisibility('pwd', 'verPwd')">
+															<svg xmlns="http://www.w3.org/2000/svg" id="verPwd" width="20" height="20"
+																fill="currentColor" class="bi bi-eye-fill mx-2" viewBox="0 0 16 16">
+																<path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0" />
+																<path
+																	d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8m8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7" />
+															</svg>
+														</button>
+													</div>
+													<div class="valid-feedback">Contraseña válida</div>
+													<div class="invalid-feedback">Por favor rellena este campo.</div>
+												</div>
+												<div class="col-md-6">
+													<label for="confirmar_contrasenya" class="form-label">Repetir Contraseña</label>
+													<div class="input-group">
+														<input type="password" class="form-control" name="confirmar_contrasenya" id="pwd2"
+															placeholder="Repetir Contraseña" required>
+														<button type="button" onclick="togglePasswordVisibility('pwd2', 'verPwd2')">
+															<svg xmlns="http://www.w3.org/2000/svg" id="verPwd2" width="20" height="20"
+																fill="currentColor" class="bi bi-eye-fill mx-2" viewBox="0 0 16 16">
+																<path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0" />
+																<path
+																	d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8m8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7" />
+															</svg>
+														</button>
+													</div>
+													<div class="valid-feedback">Contraseña confirmada</div>
+													<div class="invalid-feedback">Las contraseñas no coinciden.</div>
+												</div>
+											</div>
 
 
 					<div class="mb-3 form-check">

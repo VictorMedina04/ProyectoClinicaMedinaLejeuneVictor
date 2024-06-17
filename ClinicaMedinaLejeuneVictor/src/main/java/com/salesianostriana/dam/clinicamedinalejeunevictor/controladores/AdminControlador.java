@@ -137,6 +137,7 @@ public class AdminControlador {
 		return "redirect:/admin/mostrarDoctores";
 
 	}
+
 	// mostrar tabla clientes
 	@GetMapping("/mostrarClientes")
 	public String clientes(Model model) {
@@ -210,6 +211,7 @@ public class AdminControlador {
 
 		return "redirect:/admin/mostrarClientes";
 	}
+
 	// mostrar tabla seguros
 	@GetMapping("/mostrarSeguros")
 	public String seguros(Model model) {

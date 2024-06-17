@@ -19,4 +19,16 @@ public class CitaServicio extends BaseServiceImpl<Cita, CitasPk, CitaRepositorio
 		return repository.save(t);
 
 	}
+
+	public void ponerPreciosBase(Cita cita) {
+
+		double precioCitaNormal = 40;
+		double precioCitaEspecial = 60;
+
+		if (cita.isEspecial()) {
+			cita.setPrecioCita(precioCitaEspecial);
+		} else if (!cita.isEspecial()) {
+			cita.setPrecioCita(precioCitaNormal);
+		}
+	}
 }

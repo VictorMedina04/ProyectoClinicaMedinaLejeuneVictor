@@ -109,12 +109,22 @@ public class AdminControlador {
 	// confirmar edicion doctor
 	@PostMapping("/editarDoctor/submit")
 	public String procesarFormularioEdicion(@ModelAttribute("doctor") Doctor doctor,
-			@RequestParam(value = "esAdmin", required = false) boolean esAdmin) {
+	                                        @RequestParam(value = "esAdmin", required = false) boolean esAdmin) {
 
-		doctor.setEsAdmin(esAdmin);
+	 
+	    Doctor doctorActual = doctorServicio.findById(doctor.getId()).get();
 
-		doctorServicio.edit(doctor);
-		return "redirect:/admin/mostrarDoctores";
+	    if (!doctor.getUsername().equals(doctorActual.getUsername())) {
+	   
+	        if (usuarioServicio.encontrarPorUsername(doctor.getUsername())) {
+	            return "errorUsername"; 
+	        }
+	    }
+
+	    doctor.setEsAdmin(esAdmin);
+
+	    doctorServicio.edit(doctor);
+	    return "redirect:/admin/mostrarDoctores";
 	}
 
 	// borrar doctor
@@ -185,12 +195,25 @@ public class AdminControlador {
 		return "admin/formularioCliente";
 	}
 
-	// confirmar edicion cliente
+	
 	@PostMapping("/editarCliente/submit")
 	public String procesarFormularioEdicionCliente(@ModelAttribute("cliente") Cliente cliente) {
-		clienteServicio.edit(cliente);
-		return "redirect:/admin/mostrarClientes";
+	    
+	    Cliente clienteActual = clienteServicio.findById(cliente.getId()).get();
+	    
+	   
+	    if (!cliente.getUsername().equals(clienteActual.getUsername())) {
+	      
+	        if (usuarioServicio.encontrarPorUsername(cliente.getUsername())) {
+	            return "errorUsername"; 
+	        }
+	    }
+	    
+	    
+	    clienteServicio.edit(cliente);
+	    return "redirect:/admin/mostrarClientes";
 	}
+
 
 	// borrar Cliente
 	@GetMapping("/borrarCliente/{id}")

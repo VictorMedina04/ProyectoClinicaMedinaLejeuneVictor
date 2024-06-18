@@ -59,8 +59,6 @@ public class ClienteControlador {
 
 		cita.addToCliente(cliente);
 
-		// clienteServicio.hacerDescuento(cliente);
-
 		citaServicio.save(cita);
 
 		return "redirect:/cliente/historialCitas";

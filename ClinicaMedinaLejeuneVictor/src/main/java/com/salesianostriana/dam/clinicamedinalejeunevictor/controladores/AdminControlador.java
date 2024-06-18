@@ -58,6 +58,8 @@ public class AdminControlador {
 	@GetMapping("/mostrarDoctores")
 	public String doctores(Model model) {
 		model.addAttribute("doctores", doctorServicio.findAll());
+		doctorServicio.aumentarSalarioSiEsJefe();
+		doctorServicio.ponerSalarioNoJefe();
 		return "admin/tablaDoctores";
 	}
 
@@ -381,7 +383,7 @@ public class AdminControlador {
 	@PostMapping("/nuevaCita/submit")
 	public String nuevaCita(@ModelAttribute("cita") Cita cita) {
 
-		clienteServicio.hacerDescuento(cita.getCliente());
+		// clienteServicio.hacerDescuento(cita.getCliente());
 
 		citaServicio.save(cita);
 

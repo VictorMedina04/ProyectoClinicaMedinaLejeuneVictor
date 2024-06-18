@@ -19,4 +19,12 @@ public interface DoctorRepositorio extends JpaRepository<Doctor, Long> {
 			WHERE d.indJefe = true
 			""")
 	List<Doctor> findByIndJefe();
+
+	// encontrar a los no jefes de departamento
+	@Query("""
+			SELECT d
+			FROM Doctor d
+			WHERE d.indJefe = false
+			""")
+	List<Doctor> findByNoIndJefe();
 }

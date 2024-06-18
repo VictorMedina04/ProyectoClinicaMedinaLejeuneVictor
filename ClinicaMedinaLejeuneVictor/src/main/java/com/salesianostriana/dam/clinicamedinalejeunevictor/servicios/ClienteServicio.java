@@ -23,7 +23,7 @@ public class ClienteServicio extends BaseServiceImpl<Cliente, Long, ClienteRepos
 
 	}
 
-	public void hacerDescuento(Cliente cliente) {
+	public void hacerDescuentoPorSeguro(Cliente cliente) {
 
 		String seguro = cliente.getSeguro().getNombre().toLowerCase();
 
@@ -31,48 +31,48 @@ public class ClienteServicio extends BaseServiceImpl<Cliente, Long, ClienteRepos
 
 		double nuevoPrecio;
 
-		switch (seguro) {
-		case "Sin seguro" -> nuevoPrecio  {
-
-			for (Cita cita : citasCliente) {
-				nuevoPrecio = cita.getPrecioCita();
-			}
-
-		}
-
-		case "Seguro Bronce" -> {
-
-			for (Cita cita : citasCliente) {
-
-				if (!cita.isEspecial()) {
-
-					nuevoPrecio = cita.getPrecioCita() - cita.getPrecioCita() * 10 / 100;
-					cita.setPrecioCita(nuevoPrecio);
-				}
-			}
-		}
-
-		case "Seguro Plata" -> {
-
-		}
-
-		case "Seguro Oro" -> {
-
-		}
-
-		case "Seguro Platino" -> {
-
-		}
-
-		case "Seguro Paladio" -> {
-
-		}
-
-		default -> {
-
-		}
-
-		}
+//		switch (seguro) {
+//		case "Sin seguro" -> {
+//
+//			for (Cita cita : citasCliente) {
+//				nuevoPrecio = cita.getPrecioCita();
+//			}
+//			yield nuevoPrecio;
+//		}
+//
+//		case "Seguro Bronce" -> {
+//
+//			for (Cita cita : citasCliente) {
+//
+//				if (!cita.isEspecial()) {
+//
+//					nuevoPrecio = cita.getPrecioCita() - cita.getPrecioCita() * 10 / 100;
+//					cita.setPrecioCita(nuevoPrecio);
+//				}
+//			}
+//		}
+//
+//		case "Seguro Plata" -> {
+//
+//		}
+//
+//		case "Seguro Oro" -> {
+//
+//		}
+//
+//		case "Seguro Platino" -> {
+//
+//		}
+//
+//		case "Seguro Paladio" -> {
+//
+//		}
+//
+//		default -> {
+//
+//		}
+//
+//		}
 
 //		if (seguro == 2) {
 //

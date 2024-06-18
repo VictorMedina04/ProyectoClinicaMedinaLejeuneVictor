@@ -53,8 +53,6 @@ public class DoctorControlador {
 
 		cita.addToDoctor(doctor);
 
-		doctorServicio.aumentarSalarioPorNumCita(doctor);
-
 		cita.addToCliente(cita.getCliente());
 
 		citaServicio.save(cita);

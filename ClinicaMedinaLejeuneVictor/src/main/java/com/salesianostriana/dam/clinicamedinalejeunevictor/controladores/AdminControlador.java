@@ -109,22 +109,21 @@ public class AdminControlador {
 	// confirmar edicion doctor
 	@PostMapping("/editarDoctor/submit")
 	public String procesarFormularioEdicion(@ModelAttribute("doctor") Doctor doctor,
-	                                        @RequestParam(value = "esAdmin", required = false) boolean esAdmin) {
+			@RequestParam(value = "esAdmin", required = false) boolean esAdmin) {
 
-	 
-	    Doctor doctorActual = doctorServicio.findById(doctor.getId()).get();
+		Doctor doctorActual = doctorServicio.findById(doctor.getId()).get();
 
-	    if (!doctor.getUsername().equals(doctorActual.getUsername())) {
-	   
-	        if (usuarioServicio.encontrarPorUsername(doctor.getUsername())) {
-	            return "errorUsername"; 
-	        }
-	    }
+		if (!doctor.getUsername().equals(doctorActual.getUsername())) {
 
-	    doctor.setEsAdmin(esAdmin);
+			if (usuarioServicio.encontrarPorUsername(doctor.getUsername())) {
+				return "errorUsername";
+			}
+		}
 
-	    doctorServicio.edit(doctor);
-	    return "redirect:/admin/mostrarDoctores";
+		doctor.setEsAdmin(esAdmin);
+
+		doctorServicio.edit(doctor);
+		return "redirect:/admin/mostrarDoctores";
 	}
 
 	// borrar doctor
@@ -195,25 +194,21 @@ public class AdminControlador {
 		return "admin/formularioCliente";
 	}
 
-	
 	@PostMapping("/editarCliente/submit")
 	public String procesarFormularioEdicionCliente(@ModelAttribute("cliente") Cliente cliente) {
-	    
-	    Cliente clienteActual = clienteServicio.findById(cliente.getId()).get();
-	    
-	   
-	    if (!cliente.getUsername().equals(clienteActual.getUsername())) {
-	      
-	        if (usuarioServicio.encontrarPorUsername(cliente.getUsername())) {
-	            return "errorUsername"; 
-	        }
-	    }
-	    
-	    
-	    clienteServicio.edit(cliente);
-	    return "redirect:/admin/mostrarClientes";
-	}
 
+		Cliente clienteActual = clienteServicio.findById(cliente.getId()).get();
+
+		if (!cliente.getUsername().equals(clienteActual.getUsername())) {
+
+			if (usuarioServicio.encontrarPorUsername(cliente.getUsername())) {
+				return "errorUsername";
+			}
+		}
+
+		clienteServicio.edit(cliente);
+		return "redirect:/admin/mostrarClientes";
+	}
 
 	// borrar Cliente
 	@GetMapping("/borrarCliente/{id}")
@@ -385,6 +380,8 @@ public class AdminControlador {
 	// insertar cita
 	@PostMapping("/nuevaCita/submit")
 	public String nuevaCita(@ModelAttribute("cita") Cita cita) {
+
+		clienteServicio.hacerDescuento(cita.getCliente());
 
 		citaServicio.save(cita);
 

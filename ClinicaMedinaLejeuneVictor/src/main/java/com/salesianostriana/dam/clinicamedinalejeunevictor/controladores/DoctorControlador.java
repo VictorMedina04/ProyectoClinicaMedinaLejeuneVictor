@@ -52,6 +52,9 @@ public class DoctorControlador {
 		cita.getCitasPk().setId_doctor(doctor.getId());
 
 		cita.addToDoctor(doctor);
+
+		doctorServicio.aumentarSalarioPorNumCita(doctor);
+
 		cita.addToCliente(cita.getCliente());
 
 		citaServicio.save(cita);

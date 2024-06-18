@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.salesianostriana.dam.clinicamedinalejeunevictor.modelos.Cliente;
 import com.salesianostriana.dam.clinicamedinalejeunevictor.modelos.Seguro;
-import com.salesianostriana.dam.clinicamedinalejeunevictor.modelos.Usuario;
 import com.salesianostriana.dam.clinicamedinalejeunevictor.servicios.ClienteServicio;
 import com.salesianostriana.dam.clinicamedinalejeunevictor.servicios.DoctorServicio;
 import com.salesianostriana.dam.clinicamedinalejeunevictor.servicios.SeguroServicio;
@@ -76,14 +75,14 @@ public class MainControlador {
 	}
 
 	@PostMapping("/nuevoCliente/submit")
-	public String procesarFormulario(@ModelAttribute("clienteForm") Usuario usuario) {
+	public String procesarFormulario(@ModelAttribute("clienteForm") Cliente cliente) {
 
-		if (usuarioServicio.encontrarPorUsername(usuario.getUsername())) {
+		if (usuarioServicio.encontrarPorUsername(cliente.getUsername())) {
 			return "errorUsername";
 		}
 
-		usuarioServicio.codificarContrasenya(usuario.getPassword(), usuario);
-		usuarioServicio.save(usuario);
+		usuarioServicio.codificarContrasenya(cliente.getPassword(), cliente);
+		usuarioServicio.save(cliente);
 
 		return "redirect:/";
 	}

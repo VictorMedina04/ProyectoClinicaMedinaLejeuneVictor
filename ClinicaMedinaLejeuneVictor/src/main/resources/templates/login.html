@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
 	<meta charset="UTF-8">
@@ -14,14 +14,21 @@
 </head>
 
 <body>
-	<form method="POST" action="../templates/login.html" th:action="@{/login}">
-		<h1>Iniciar sesión</h1>
-		<input type="text" id="username" name="username" placeholder="Nombre de usuario" required autofocus>
-		<br>
-		<input type="password" name="password" id="password" placeholder="Contraseña" required>
-		<br>
-		<input type="submit" name="enviar" value="Iniciar Sesión">
-	</form>
+	<div>
+		<form method="POST" th:action="@{/login}">
+			<h1>Iniciar sesión</h1>
+			<input type="text" id="username" name="username" placeholder="Nombre de usuario" required autofocus>
+			<br>
+			<input type="password" name="password" id="password" placeholder="Contraseña" required>
+			<br>
+			<input type="submit" name="enviar" value="Iniciar Sesión">
+		</form>
+		<form th:action="@{/}" method="get" class="mt-2">
+			<button class="btn btn-link btn-out">Salir</button>
+		</form>
+	</div>
+
+
 </body>
 
 </html>

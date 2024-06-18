@@ -1,5 +1,8 @@
 package com.salesianostriana.dam.clinicamedinalejeunevictor.servicios;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.salesianostriana.dam.clinicamedinalejeunevictor.modelos.Cita;
@@ -11,6 +14,9 @@ import jakarta.transaction.Transactional;
 
 @Service
 public class CitaServicio extends BaseServiceImpl<Cita, CitasPk, CitaRepositorio> {
+
+	@Autowired
+	private CitaRepositorio citaRepositorio;
 
 	@Transactional
 	@Override
@@ -31,4 +37,20 @@ public class CitaServicio extends BaseServiceImpl<Cita, CitasPk, CitaRepositorio
 			cita.setPrecioCita(precioCitaNormal);
 		}
 	}
+
+	// buscar por departamento
+	public List<Cita> buscarPorDepartamento(Cita cita) {
+
+		Long idDepartamento = cita.getDoctor().getDepartamento().getIdDepartamento();
+
+		return citaRepositorio.findByDepartamento(idDepartamento);
+	}
+
+	// contar citas doctor
+	public int contarCitasDoctor(Long id) {
+		return citaRepositorio.countByDoctor(id);
+	}
+
+	// metodos de duracion de 15 y 60
+
 }

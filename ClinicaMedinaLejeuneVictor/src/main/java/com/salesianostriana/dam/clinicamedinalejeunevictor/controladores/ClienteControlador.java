@@ -37,9 +37,6 @@ public class ClienteControlador {
 	@Autowired
 	private CitaServicio citaServicio;
 
-	
-
-
 	@GetMapping("/citas")
 	public String mostrarFormularioCita(Model model) {
 
@@ -59,7 +56,10 @@ public class ClienteControlador {
 		cita.getCitasPk().setId_doctor(cita.getDoctor().getId());
 
 		cita.addToDoctor(cita.getDoctor());
+
 		cita.addToCliente(cliente);
+
+		clienteServicio.hacerDescuento(cliente);
 
 		citaServicio.save(cita);
 
@@ -86,7 +86,7 @@ public class ClienteControlador {
 
 		return "redirect:/cliente/historialCitas";
 	}
-	
+
 	@GetMapping("/seguros")
 	public String mostrarSeguros(Model model, @AuthenticationPrincipal Cliente cliente) {
 

@@ -11,28 +11,8 @@
 		integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
 		crossorigin="anonymous"></script>
 	<link rel="stylesheet" href="../static/css/botonBorrar.css" th:href="@{/css/botonBorrar.css}" />
-	<script>
-		document.addEventListener('DOMContentLoaded', function () {
-			const deleteButtons = document.querySelectorAll('.delete-button');
-			const deleteModal = document.getElementById('delete-modal');
-			const confirmDeleteBtn = document.querySelector('.confirm-delete');
-			let deleteUrl = '';
+	<script src="../static/js/borradoCitaCliente.js" th:src="@{/js/borradoCitaCliente.js}" defer></script>
 
-			deleteButtons.forEach(button => {
-				button.addEventListener('click', function () {
-					const idDoctor = button.getAttribute('data-id-doctor');
-					const idCliente = button.getAttribute('data-id-cliente');
-					const fechaInicio = button.getAttribute('data-fecha-inicio');
-					fechaInicio1 = fechaInicio.replace(' ', 'T');
-					deleteUrl = `/cliente/borrarCita/${idDoctor}/${idCliente}/${fechaInicio1}`;
-					confirmDeleteBtn.setAttribute('href', deleteUrl);
-					deleteModal.show();
-				});
-			});
-
-
-		});
-	</script>
 
 </head>
 

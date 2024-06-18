@@ -21,7 +21,7 @@ public interface CitaRepositorio extends JpaRepository<Cita, CitasPk> {
 			FROM Cita c
 			WHERE duracion = 15
 			""")
-	List<Cita> findByDuracionMenor(int duracion);
+	List<Cita> findByDuracionMenor();
 
 	// citas que su duracion sea 60
 	@Query("""
@@ -29,7 +29,7 @@ public interface CitaRepositorio extends JpaRepository<Cita, CitasPk> {
 			FROM Cita c
 			WHERE duracion = 60
 			""")
-	List<Cita> findByDuracionMayor(int duracion);
+	List<Cita> findByDuracionMayor();
 
 	// contar las citas de un doctor
 	@Query("""

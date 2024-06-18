@@ -71,6 +71,9 @@ public class ClienteControlador {
 
 		model.addAttribute("citasCliente", cliente.getCitas());
 
+		citaServicio.aumentarPrecioPorDuracion();
+		citaServicio.rebajarPrecioPorDuracion();
+
 		return "/cliente/historialCitas";
 	}
 

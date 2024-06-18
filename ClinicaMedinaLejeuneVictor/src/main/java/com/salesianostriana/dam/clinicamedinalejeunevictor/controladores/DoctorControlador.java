@@ -67,6 +67,9 @@ public class DoctorControlador {
 
 		model.addAttribute("citasDoctor", doctor.getCitas());
 
+		citaServicio.aumentarPrecioPorDuracion();
+		citaServicio.rebajarPrecioPorDuracion();
+
 		return "/doctor/historialCitas";
 	}
 

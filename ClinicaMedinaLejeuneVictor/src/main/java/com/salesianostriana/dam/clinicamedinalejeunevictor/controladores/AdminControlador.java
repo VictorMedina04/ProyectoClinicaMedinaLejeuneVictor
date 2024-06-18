@@ -361,6 +361,8 @@ public class AdminControlador {
 	@GetMapping("/mostrarCitas")
 	public String citas(Model model) {
 		model.addAttribute("citas", citaServicio.findAll());
+		citaServicio.aumentarPrecioPorDuracion();
+		citaServicio.rebajarPrecioPorDuracion();
 		return "admin/tablaCitas";
 	}
 

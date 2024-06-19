@@ -14,8 +14,7 @@ import com.salesianostriana.dam.clinicamedinalejeunevictor.servicios.serviciosba
 @Service
 public class DoctorServicio extends BaseServiceImpl<Doctor, Long, DoctorRepositorio> {
 
-	@Autowired
-	private CitaServicio citaServicio;
+	
 
 	@Autowired
 	private DoctorRepositorio doctorRepositorio;

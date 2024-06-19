@@ -55,6 +55,11 @@ public class ClienteControlador {
 		cita.getCitasPk().setId_cliente(cliente.getId());
 		cita.getCitasPk().setId_doctor(cita.getDoctor().getId());
 
+
+		if(!citaServicio.esCitaUnica(cita.getCitasPk())) {
+			return "/errorCita";
+		}
+		
 		citaServicio.save(cita);
 
 		// especial

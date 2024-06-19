@@ -379,12 +379,15 @@ public class AdminControlador {
 	@PostMapping("/nuevaCita/submit")
 	public String nuevaCita(@ModelAttribute("cita") Cita cita, Model model) {
 
-		if (cita.getCitasPk().getFecha_inicio().isEqual(null)) {
-
-		}
-
 		cita.getCitasPk().setId_cliente(cita.getCliente().getId());
 		cita.getCitasPk().setId_doctor(cita.getDoctor().getId());
+	
+		
+		if(!citaServicio.esCitaUnica(cita.getCitasPk())) {
+			return "/errorCita";
+		}
+
+		
 
 		citaServicio.save(cita);
 

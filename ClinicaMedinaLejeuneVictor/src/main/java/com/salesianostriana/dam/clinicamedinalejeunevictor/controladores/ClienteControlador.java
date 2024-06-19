@@ -48,14 +48,40 @@ public class ClienteControlador {
 	}
 
 	@PostMapping("/citas/submit")
-	public String procesarFormularioCitas(@ModelAttribute("cita") Cita cita, @AuthenticationPrincipal Cliente cliente) {
+	public String procesarFormularioCitas(@ModelAttribute("cita") Cita cita, @AuthenticationPrincipal Cliente cliente,
+			Model model) {
 
-		citaServicio.ponerPreciosBase(cita);
-
+		cita.setCliente(cliente);
 		cita.getCitasPk().setId_cliente(cliente.getId());
 		cita.getCitasPk().setId_doctor(cita.getDoctor().getId());
 
-		
+		citaServicio.save(cita);
+
+		// especial
+		citaServicio.ponerPreciosBase(cita);
+
+		// duracion
+		double precioDuracion = citaServicio.rebajarPrecioPorDuracion(cita);
+		cita.setPrecioCita(precioDuracion);
+		// seguro
+		double precioPorSeguro = clienteServicio.hacerDescuentoPorSeguro(cita);
+
+		// num citas
+		int contadorCitas = clienteServicio.contarCitasCliente(cliente);
+		int limite = 2;
+
+		boolean aplicarRebajaPorNumeroCitas;
+		double total = precioPorSeguro;
+
+		if (aplicarRebajaPorNumeroCitas = (contadorCitas > limite)) {
+			total = precioPorSeguro - precioPorSeguro * 10 / 100;
+		}
+
+		cita.setPrecioCita(total);
+		model.addAttribute("seguro", cita.getCliente().getSeguro());
+		model.addAttribute("precioDuracion", precioDuracion);
+		model.addAttribute("precioPorSeguro", precioPorSeguro);
+		model.addAttribute("aplicarRebaja", aplicarRebajaPorNumeroCitas);
 
 		cita.addToDoctor(cita.getDoctor());
 		cita.addToCliente(cliente);
@@ -64,7 +90,12 @@ public class ClienteControlador {
 
 		doctorServicio.aumentarSalarioPorNumCita(cita.getDoctor());
 
-		return "redirect:/cliente/historialCitas";
+		return "cliente/pantallaPago";
+	}
+
+	@GetMapping("/pantallaPago")
+	public String mostrarPantallaPago() {
+		return "cliente/pantallaPago";
 	}
 
 	@GetMapping("/historialCitas")

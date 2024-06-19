@@ -1,6 +1,5 @@
 package com.salesianostriana.dam.clinicamedinalejeunevictor.controladores;
 
-
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -360,8 +359,6 @@ public class AdminControlador {
 		model.addAttribute("citas", citaServicio.findAll());
 		return "admin/tablaCitas";
 	}
-	
-	
 
 	// formulario cita
 	@GetMapping("/nuevaCita")
@@ -382,56 +379,63 @@ public class AdminControlador {
 	@PostMapping("/nuevaCita/submit")
 	public String nuevaCita(@ModelAttribute("cita") Cita cita, Model model) {
 
-		
+		if (cita.getCitasPk().getFecha_inicio().isEqual(null)) {
+
+		}
+
 		cita.getCitasPk().setId_cliente(cita.getCliente().getId());
 		cita.getCitasPk().setId_doctor(cita.getDoctor().getId());
-		
+
 		citaServicio.save(cita);
 
 		double precioInformadoPorAdmin = cita.getPrecioCita();
-		
-		//especial 
+
+		// especial
 		citaServicio.ponerPreciosBase(cita);
-					
-		//duracion
+
+		// duracion
 		double precioDuracion = citaServicio.rebajarPrecioPorDuracion(cita);
 		cita.setPrecioCita(precioDuracion);
-		//seguro
+		// seguro
 		double precioPorSeguro = clienteServicio.hacerDescuentoPorSeguro(cita);
-				
-		//num citas
-		int contadorCitas =  clienteServicio.contarCitasCliente(cita.getCliente());
+
+		// num citas
+		int contadorCitas = clienteServicio.contarCitasCliente(cita.getCliente());
 		int limite = 2;
+
 		boolean aplicarRebajaPorNumeroCitas;
 		double total = precioPorSeguro;
-		
-		if (aplicarRebajaPorNumeroCitas =( contadorCitas > limite)) {
-			 total = precioPorSeguro - precioPorSeguro * 10 / 100; 	
+
+		if (aplicarRebajaPorNumeroCitas = (contadorCitas > limite)) {
+			total = precioPorSeguro - precioPorSeguro * 10 / 100;
 		}
-		
+
 		boolean aplicarPrecioInformadoPorAdmin;
-		if(aplicarPrecioInformadoPorAdmin=(precioInformadoPorAdmin > 0)) {
-			
+		if (aplicarPrecioInformadoPorAdmin = (precioInformadoPorAdmin > 0)) {
+
 			total = precioInformadoPorAdmin;
 		}
-		
-		 cita.setPrecioCita(total);
-		 model.addAttribute("seguro", cita.getCliente().getSeguro());
-		 model.addAttribute("precioDuracion", precioDuracion);
-		 model.addAttribute("precioPorSeguro", precioPorSeguro);
-		 model.addAttribute("aplicarRebaja", aplicarRebajaPorNumeroCitas);
-		 model.addAttribute("precioInformadoPorAdmin", precioInformadoPorAdmin);
-		 model.addAttribute("aplicarPrecioInformadoPorAdmin", aplicarPrecioInformadoPorAdmin);
+
+		cita.setPrecioCita(total);
+		model.addAttribute("seguro", cita.getCliente().getSeguro());
+		model.addAttribute("precioDuracion", precioDuracion);
+		model.addAttribute("precioPorSeguro", precioPorSeguro);
+		model.addAttribute("aplicarRebaja", aplicarRebajaPorNumeroCitas);
+		model.addAttribute("precioInformadoPorAdmin", precioInformadoPorAdmin);
+		model.addAttribute("aplicarPrecioInformadoPorAdmin", aplicarPrecioInformadoPorAdmin);
 
 		citaServicio.save(cita);
-		
+
 		doctorServicio.aumentarSalarioPorNumCita(cita.getDoctor());
-		 
+
 		return "/admin/pantallaPago";
 	}
 
-	
-	
+	@GetMapping("/pantallaPago")
+	public String mostrarPantallaPago() {
+		return "admin/pantallaPago";
+	}
+
 	// formulario para editar Cita
 	@GetMapping("/editarCita/{id_doctor}/{id_cliente}/{fecha_inicio}")
 	public String mostrarFormularioEdicionCita(@PathVariable("id_doctor") long id_doctor,

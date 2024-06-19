@@ -19,34 +19,50 @@
 	</div>
 
 	<div class="text-center">
-		<p>	La cita que usted ha solicitado debe ser abonada para que pueda ser realizada.</p>	
-		
-		<div 		th:switch="${aplicarPrecioInformadoPorAdmin}">
-			<div 			th:case="false">
-				<p th:if="${cita.especial}">El coste base de 15 minutos de la cita es 60 €, por cada 15 minutos se suma un 5% al precio base</p>
-							<p th:if="${cita.especial == false}">El coste base de 15 minutos de la cita es 40 €, por cada 15 minutos se suma un 5% al precio base</p>
-							<p 	th:if="${cita.duracion > 15}">El coste se vera incrementado por la duración seleccionada quedando un importe de:<p th:if="${cita.duracion > 15}" class="card-text" th:text="${precioDuracion}"></p></p>	
-							<p th:if="${seguro.idSeguro != 1}">El coste debido a su seguro se reduce a <p th:if="${seguro.idSeguro != 1}" class="card-text" th:text="${precioPorSeguro}"></p></p>
-							<p th:if="${seguro.idSeguro == 1}">No cambia su coste porque no tiene contratado el seguro</p>
-							<p th:if="${aplicarRebaja}">Tiene una bonificacion del 10% por ser cliente habitual, el coste total será de: <p th:if="${aplicarRebaja}" class="card-text" th:text="${cita.precioCita}"></p></p>
+		<p> La cita que usted ha solicitado debe ser abonada para que pueda ser realizada.</p>
+
+		<div th:switch="${aplicarPrecioInformadoPorAdmin}">
+			<div th:case="false">
+				<p th:if="${cita.especial}">El coste base de 15 minutos de la cita es 60 €, por cada 15 minutos se suma
+					un 5% al precio base</p>
+				<p th:if="${cita.especial == false}">El coste base de 15 minutos de la cita es 40 €, por cada 15 minutos
+					se suma un 5% al precio base</p>
+				<p th:if="${cita.duracion > 15}">El coste se vera incrementado por la duración seleccionada quedando un
+					importe de:
+				<p th:if="${cita.duracion > 15}" class="card-text"
+					th:text="${#numbers.formatDecimal(precioDuracion, 1, 2) + ' €'}"></p>
+				</p>
+				<p th:if="${seguro.idSeguro != 1}">El coste debido a su seguro se reduce a
+
+				<p th:if="${seguro.idSeguro != 1}" class="card-text"
+					th:text="${#numbers.formatDecimal(precioPorSeguro, 1, 2) + ' €'}"></p>
+				</p>
+				<p th:if="${seguro.idSeguro == 1}">No cambia su coste porque no tiene contratado el seguro</p>
+				<p th:if="${aplicarRebaja}">Tiene una bonificacion del 10% por ser cliente habitual, el coste total será
+					de:
 					
-				
+				<p th:if="${aplicarRebaja}" class="card-text" th:text="${#numbers.formatDecimal(cita.precioCita, 1, 2) + ' €'}"></p>
+				</p>
+
+
 			</div>
-			<div 			th:case="true">
-				<p >El precio a pagar, asignado por el administrador es: <p class="card-text" th:text="${cita.precioCita}"></p></p>	
+			<div th:case="true">
+				<p>El precio a pagar, asignado por el administrador es:
+				<p class="card-text" th:text="${#numbers.formatDecimal(cita.precioCita, 1, 2) + ' €'}"></p>
+				</p>
 			</div>
-			
+
 		</div>
-		
-			
-	<form th:action="@{/admin/mostrarCitas}" method="get">
-		<button class="btn btn-link btn-login" type="submit">Pagar</button>
-	</form>
-	
+
+
+		<form th:action="@{/admin/mostrarCitas}" method="get">
+			<button class="btn btn-link btn-login" type="submit">Pagar</button>
+		</form>
+
 	</div>
-	
-	
-	
+
+
+
 	<footer th:replace="~{fragmentos/pie::pie}"></footer>
 
 </body>

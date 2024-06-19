@@ -7,7 +7,6 @@ import org.springframework.data.jpa.repository.Query;
 
 import com.salesianostriana.dam.clinicamedinalejeunevictor.modelos.Cita;
 import com.salesianostriana.dam.clinicamedinalejeunevictor.modelos.CitasPk;
-import com.salesianostriana.dam.clinicamedinalejeunevictor.modelos.Doctor;
 
 public interface CitaRepositorio extends JpaRepository<Cita, CitasPk> {
 
@@ -16,9 +15,6 @@ public interface CitaRepositorio extends JpaRepository<Cita, CitasPk> {
 	@Query("SELECT c FROM Cita	c JOIN c.doctor WHERE c.doctor.departamento.idDepartamento = ?1")
 	List<Cita> findByDepartamento(Long idDepartamento);
 
-	
-	
-
 	// contar las citas de un doctor
 	@Query("""
 			SELECT count(c)
@@ -26,14 +22,13 @@ public interface CitaRepositorio extends JpaRepository<Cita, CitasPk> {
 			WHERE c.doctor.id = ?1
 			""")
 	int countByDoctor(Long id);
-	
+
 	// contar las citas de un cliente
-		@Query("""
-				SELECT count(c)
-				FROM Cita c
-				WHERE c.cliente.id = ?1
-				""")
-		int countByCliente(Long id);
-		
-	
+	@Query("""
+			SELECT count(c)
+			FROM Cita c
+			WHERE c.cliente.id = ?1
+			""")
+	int countByCliente(Long id);
+
 }

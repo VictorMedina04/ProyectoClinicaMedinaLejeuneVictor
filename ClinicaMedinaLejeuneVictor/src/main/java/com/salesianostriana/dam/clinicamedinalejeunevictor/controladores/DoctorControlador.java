@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.salesianostriana.dam.clinicamedinalejeunevictor.modelos.Cita;
 import com.salesianostriana.dam.clinicamedinalejeunevictor.modelos.CitasPk;
+import com.salesianostriana.dam.clinicamedinalejeunevictor.modelos.Cliente;
 import com.salesianostriana.dam.clinicamedinalejeunevictor.modelos.Doctor;
 import com.salesianostriana.dam.clinicamedinalejeunevictor.servicios.CitaServicio;
 import com.salesianostriana.dam.clinicamedinalejeunevictor.servicios.ClienteServicio;
@@ -56,6 +57,8 @@ public class DoctorControlador {
 		cita.addToCliente(cita.getCliente());
 
 		citaServicio.save(cita);
+		
+		doctorServicio.aumentarSalarioPorNumCita(cita.getDoctor());
 
 		return "redirect:/doctor/historialCitas";
 	}
@@ -64,9 +67,6 @@ public class DoctorControlador {
 	public String mostrarHistorialCliente(@AuthenticationPrincipal Doctor doctor, Model model) {
 
 		model.addAttribute("citasDoctor", doctor.getCitas());
-
-		citaServicio.aumentarPrecioPorDuracion();
-		citaServicio.rebajarPrecioPorDuracion();
 
 		return "/doctor/historialCitas";
 	}

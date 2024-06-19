@@ -40,11 +40,11 @@ public class DoctorServicio extends BaseServiceImpl<Doctor, Long, DoctorReposito
 	public void aumentarSalarioPorNumCita(Doctor doctor) {
 
 		int numCitas = citaServicio.contarCitasDoctor(doctor.getId());
-
+		double nuevoSalario;
 		int limite = 5;
 
 		if (numCitas > limite) {
-			double nuevoSalario = doctor.getSalario() + doctor.getSalario() * 5 / 100;
+			nuevoSalario = doctor.getSalario() + doctor.getSalario() * 5 / 100;
 			doctor.setSalario(nuevoSalario);
 		}
 	}

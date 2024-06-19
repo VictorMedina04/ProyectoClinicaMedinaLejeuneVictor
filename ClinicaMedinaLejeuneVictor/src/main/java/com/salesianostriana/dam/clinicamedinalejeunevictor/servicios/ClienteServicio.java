@@ -22,118 +22,63 @@ public class ClienteServicio extends BaseServiceImpl<Cliente, Long, ClienteRepos
 		cliente.getCitas().remove(cita);
 
 	}
-
-	public void hacerDescuentoPorSeguro(Cliente cliente) {
-
-		String seguro = cliente.getSeguro().getNombre().toLowerCase();
-
-		List<Cita> citasCliente = cliente.getCitas();
-
-		double nuevoPrecio;
-
-//		switch (seguro) {
-//		case "Sin seguro" -> {
-//
-//			for (Cita cita : citasCliente) {
-//				nuevoPrecio = cita.getPrecioCita();
-//			}
-//			yield nuevoPrecio;
-//		}
-//
-//		case "Seguro Bronce" -> {
-//
-//			for (Cita cita : citasCliente) {
-//
-//				if (!cita.isEspecial()) {
-//
-//					nuevoPrecio = cita.getPrecioCita() - cita.getPrecioCita() * 10 / 100;
-//					cita.setPrecioCita(nuevoPrecio);
-//				}
-//			}
-//		}
-//
-//		case "Seguro Plata" -> {
-//
-//		}
-//
-//		case "Seguro Oro" -> {
-//
-//		}
-//
-//		case "Seguro Platino" -> {
-//
-//		}
-//
-//		case "Seguro Paladio" -> {
-//
-//		}
-//
-//		default -> {
-//
-//		}
-//
-//		}
-
-//		if (seguro == 2) {
-//
-//			for (Cita cita : citasCliente) {
-//
-//				if (!cita.isEspecial()) {
-//
-//					nuevoPrecio = cita.getPrecioCita() - cita.getPrecioCita() * 10 / 100;
-//					cita.setPrecioCita(nuevoPrecio);
-//				}
-//			}
-//		}
-//
-//		if (seguro == 3) {
-//
-//			for (Cita cita : citasCliente) {
-//
-//				if (cita.isEspecial()) {
-//
-//					nuevoPrecio = cita.getPrecioCita() - cita.getPrecioCita() * 15 / 100;
-//					cita.setPrecioCita(nuevoPrecio);
-//				}
-//				if (!cita.isEspecial()) {
-//
-//					cita.setPrecioCita(0);
-//				}
-//			}
-//
-//		}
-//
-//		if (seguro == 4) {
-//
-//			for (Cita cita : citasCliente) {
-//
-//				cita.setPrecioCita(0);
-//
-//			}
-//		}
-//
-//		if (seguro == 5) {
-//
-//			for (Cita cita : citasCliente) {
-//				List<Cita> citasPorDepartamento = citaServicio.buscarPorDepartamento(cita);
-//				for (Cita cita2 : citasPorDepartamento) {
-//					nuevoPrecio = cita2.getPrecioCita() - cita2.getPrecioCita() * 45 / 100;
-//					cita.setPrecioCita(nuevoPrecio);
-//				}
-//
-//			}
-//
-//		}
-//		if (seguro == 6) {
-//
-//			for (Cita cita : citasCliente) {
-//
-//				nuevoPrecio = cita.getPrecioCita() - cita.getPrecioCita() * 50 / 100;
-//				cita.setPrecioCita(nuevoPrecio);
-//
-//			}
-//		}
-
+	
+	public int contarCitasCliente(Cliente cliente) {
+		
+		return citaServicio.contarCitasCliente(cliente.getId());
+		
 	}
+	
+	
+	public double hacerDescuentoPorSeguro(Cita cita) {
 
+		Cliente cliente = cita.getCliente();
+	    String seguro = cliente.getSeguro().getNombre().toLowerCase();
+	  
+	    	double nuevoPrecio = switch (seguro) {
+	            
+	    		case "sin seguro" -> cita.getPrecioCita();
+	    	
+	            case "seguro bronce" -> {
+	                if (!cita.isEspecial()) {
+	                    yield cita.getPrecioCita() - cita.getPrecioCita() * 10 / 100;
+	                } else {
+	                    yield cita.getPrecioCita();
+	                }
+	            }
+	           
+	            case "seguro plata" -> {
+	            	
+	            	if (cita.isEspecial()) {         	
+	            		yield cita.getPrecioCita() - cita.getPrecioCita() * 15 / 100;	
+	            	}
+	            	else {
+	            		yield 0;
+	            	}
+	            }
+	            
+	            case "seguro oro" -> 0.0;
+	            
+	            
+	            case "seguro platino" -> {
+	            
+					List<Cita> citasPorDepartamento = citaServicio.buscarPorDepartamento(cita);
+					
+					for (Cita cita2 : citasPorDepartamento) {
+						yield cita2.getPrecioCita() - cita2.getPrecioCita() * 45 / 100;
+					
+					}
+					
+					yield cita.getPrecioCita();
+	            }
+	            case "seguro paladio" -> {
+	               yield nuevoPrecio = cita.getPrecioCita() - cita.getPrecioCita() * 50 / 100;
+	            }
+	           
+	            default -> cita.getPrecioCita() - cita.getPrecioCita() * 10 / 100;
+	        
+	    	};
+	      
+	    	return nuevoPrecio;
+	    }
 }

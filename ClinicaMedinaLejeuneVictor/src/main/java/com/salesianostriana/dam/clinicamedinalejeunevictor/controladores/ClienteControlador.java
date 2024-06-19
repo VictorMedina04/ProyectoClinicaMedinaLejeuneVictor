@@ -55,11 +55,14 @@ public class ClienteControlador {
 		cita.getCitasPk().setId_cliente(cliente.getId());
 		cita.getCitasPk().setId_doctor(cita.getDoctor().getId());
 
-		cita.addToDoctor(cita.getDoctor());
+		
 
+		cita.addToDoctor(cita.getDoctor());
 		cita.addToCliente(cliente);
 
 		citaServicio.save(cita);
+
+		doctorServicio.aumentarSalarioPorNumCita(cita.getDoctor());
 
 		return "redirect:/cliente/historialCitas";
 	}
@@ -68,9 +71,6 @@ public class ClienteControlador {
 	public String mostrarHistorialCliente(@AuthenticationPrincipal Cliente cliente, Model model) {
 
 		model.addAttribute("citasCliente", cliente.getCitas());
-
-		citaServicio.aumentarPrecioPorDuracion();
-		citaServicio.rebajarPrecioPorDuracion();
 
 		return "/cliente/historialCitas";
 	}

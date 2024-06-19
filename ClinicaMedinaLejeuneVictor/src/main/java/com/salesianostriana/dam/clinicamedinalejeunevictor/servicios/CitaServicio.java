@@ -51,31 +51,36 @@ public class CitaServicio extends BaseServiceImpl<Cita, CitasPk, CitaRepositorio
 		return citaRepositorio.countByDoctor(id);
 	}
 
-	public void rebajarPrecioPorDuracion() {
-		double nuevoPrecio;
+	// contar citas cliente
+	public int contarCitasCliente(Long id) {
+		return citaRepositorio.countByCliente(id);
+	}
+	
+	// metodos de duracion
+	public double rebajarPrecioPorDuracion(Cita cita) {
+		
 
-		List<Cita> listaDuracionCorta = citaRepositorio.findByDuracionMenor();
+		int duracionCita = cita.getDuracion();
+		double nuevoPrecioDuracion = cita.getPrecioCita();
+		
+		switch(duracionCita) {
+	
+		case 30:
+			nuevoPrecioDuracion =cita.getPrecioCita() + cita.getPrecioCita() * 5/100;
+			break;
+		case 45:
+			nuevoPrecioDuracion =cita.getPrecioCita() + cita.getPrecioCita() * 10/100;
 
-		for (Cita cita : listaDuracionCorta) {
+			break;
+		case 60:
+			nuevoPrecioDuracion =cita.getPrecioCita() + cita.getPrecioCita() * 15/100;
 
-			nuevoPrecio = cita.getPrecioCita() - cita.getPrecioCita() * 5 / 100;
-			cita.setPrecioCita(nuevoPrecio);
+			break;
 		}
+
+		return nuevoPrecioDuracion;
 	}
 
-	// metodos de duracion de 15 y 60
-	public void aumentarPrecioPorDuracion() {
-
-		List<Cita> listaDuracionLarga = citaRepositorio.findByDuracionMayor();
-
-		double nuevoPrecio;
-
-		for (Cita cita2 : listaDuracionLarga) {
-			nuevoPrecio = cita2.getPrecioCita() + cita2.getPrecioCita() * 5 / 100;
-			cita2.setPrecioCita(nuevoPrecio);
-
-		}
-
-	}
+	
 
 }

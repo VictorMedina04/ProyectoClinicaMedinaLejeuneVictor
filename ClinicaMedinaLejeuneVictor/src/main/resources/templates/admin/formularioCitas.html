@@ -25,12 +25,13 @@
 				<h2 class="mb-4 text-center">Cita</h2>
 
 				<form method="post"
-					th:action="${cita.citasPk != 0} ? @{/admin/editarCita/submit} : @{/admin/nuevaCita/submit}"
+					th:action="${cita.citasPk.id_cliente != 0} ? @{/admin/editarCita/submit} : @{/admin/nuevaCita/submit}"
 					th:object="${cita}" class="needs-validation" novalidate>
 
 
 					<div class="mb-3" th:switch="${cita.citasPk.id_doctor == 0}">
-						<div th:case="true">
+					
+							<div th:case="true">
 							<label for="doctor" class="form-label">Doctor</label>
 							<select class="form-control" required th:field="*{doctor}">
 
@@ -42,8 +43,10 @@
 
 							</select>
 						</div>
+						
 						<div th:case="false">
 							<input type="hidden" th:field="*{citasPk.id_doctor}">
+							<input type="hidden" th:field="*{doctor}">
 						</div>
 
 					</div>
@@ -62,6 +65,8 @@
 						</div>
 						<div th:case="false">
 							<input type="hidden" th:field="*{citasPk.id_cliente}">
+							<input type="hidden" th:field="*{cliente}">
+
 						</div>
 
 					</div>
@@ -72,7 +77,7 @@
 						                           <label for="fechaInicio" class="form-label">Fecha Inicio</label>
 						                           <input type="datetime-local" class="form-control" id="fechaInicio"
 						                               th:field="*{citasPk.fecha_inicio}" placeholder="Hora de inicio" required>
-						                           <div class="invalid-feedback">La hora debe ser entre 15:00 y 21:00 con minutos en 00.</div>
+						                           <div class="invalid-feedback">La hora debe ser entre 18:00 y 21:00 con minutos en 00.</div>
 						                       </div>
 
 						<div tht:case="false">
@@ -85,7 +90,7 @@
 
 					<div class="mb-3">
 						<label for="precio" class="form-label">Precio</label>
-						<input type="number" class="form-control" th:field="*{precioCita}" id="precio" min="40"
+						<input type="number" class="form-control" th:field="*{precioCita}" id="precio" min="0"
 							step="0.10" placeholder="40.00 €">
 					</div>
 

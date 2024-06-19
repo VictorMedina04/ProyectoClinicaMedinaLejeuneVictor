@@ -15,13 +15,7 @@ public interface CitaRepositorio extends JpaRepository<Cita, CitasPk> {
 	@Query("SELECT c FROM Cita	c JOIN c.doctor WHERE c.doctor.departamento.idDepartamento = ?1")
 	List<Cita> findByDepartamento(Long idDepartamento);
 
-	// contar las citas de un doctor
-	@Query("""
-			SELECT count(c)
-			FROM Cita c
-			WHERE c.doctor.id = ?1
-			""")
-	int countByDoctor(Long id);
+
 
 	// contar las citas de un cliente
 	@Query("""

@@ -84,8 +84,6 @@ public class DoctorControlador {
 		cita.addToCliente(cita.getCliente());
 		citaServicio.save(cita);
 
-		doctorServicio.aumentarSalarioPorNumCita(cita.getDoctor());
-
 		return "doctor/pantallaPago";
 	}
 

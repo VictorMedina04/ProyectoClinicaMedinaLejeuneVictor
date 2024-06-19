@@ -46,11 +46,7 @@ public class CitaServicio extends BaseServiceImpl<Cita, CitasPk, CitaRepositorio
 		return citaRepositorio.findByDepartamento(idDepartamento);
 	}
 
-	// contar citas doctor
-	public int contarCitasDoctor(Long id) {
-		return citaRepositorio.countByDoctor(id);
-	}
-
+	
 	// contar citas cliente
 	public int contarCitasCliente(Long id) {
 		return citaRepositorio.countByCliente(id);

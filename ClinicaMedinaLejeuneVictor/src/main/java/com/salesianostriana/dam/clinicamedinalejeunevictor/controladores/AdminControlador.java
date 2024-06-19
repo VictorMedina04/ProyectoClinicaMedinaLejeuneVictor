@@ -426,8 +426,6 @@ public class AdminControlador {
 
 		citaServicio.save(cita);
 
-		doctorServicio.aumentarSalarioPorNumCita(cita.getDoctor());
-
 		return "/admin/pantallaPago";
 	}
 

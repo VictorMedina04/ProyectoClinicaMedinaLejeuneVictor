@@ -35,20 +35,6 @@ public class DoctorServicio extends BaseServiceImpl<Doctor, Long, DoctorReposito
 
 	}
 
-	// metodo si el doctor a llegado a x num de citas se le aumente el salario un
-	// 5%
-	public void aumentarSalarioPorNumCita(Doctor doctor) {
-
-		int numCitas = citaServicio.contarCitasDoctor(doctor.getId());
-		double nuevoSalario;
-		int limite = 5;
-
-		if (numCitas > limite) {
-			nuevoSalario = doctor.getSalario() + doctor.getSalario() * 5 / 100;
-			doctor.setSalario(nuevoSalario);
-		}
-	}
-
 	// metodo de que si el doctor es jefe de departamento tenga un 5% mas de salario
 	public void aumentarSalarioSiEsJefe() {
 		List<Doctor> listaJefes = doctorRepositorio.findByIndJefe();

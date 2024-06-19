@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.salesianostriana.dam.clinicamedinalejeunevictor.modelos.Cliente;
 import com.salesianostriana.dam.clinicamedinalejeunevictor.modelos.Seguro;
-import com.salesianostriana.dam.clinicamedinalejeunevictor.servicios.ClienteServicio;
 import com.salesianostriana.dam.clinicamedinalejeunevictor.servicios.DoctorServicio;
 import com.salesianostriana.dam.clinicamedinalejeunevictor.servicios.SeguroServicio;
 import com.salesianostriana.dam.clinicamedinalejeunevictor.servicios.UsuarioServicio;
@@ -22,9 +21,6 @@ public class MainControlador {
 
 	@Autowired
 	private DoctorServicio doctorServicio;
-
-	@Autowired
-	private ClienteServicio clienteServicio;
 
 	@Autowired
 	private SeguroServicio seguroServicio;

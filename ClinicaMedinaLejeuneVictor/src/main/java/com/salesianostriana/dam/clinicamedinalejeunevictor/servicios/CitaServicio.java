@@ -79,5 +79,12 @@ public class CitaServicio extends BaseServiceImpl<Cita, CitasPk, CitaRepositorio
 	public void buscarFechaCitas() {
 
 	}
-
+	
+	//comprobar cliente,doctor,fecha
+	public boolean esCitaUnica(CitasPk citasPk) {
+	
+		int contador = citaRepositorio.existeCita(citasPk.getId_cliente(), citasPk.getFecha_inicio(), citasPk.getId_doctor());	
+		
+		return contador == 0;
+	}
 }
